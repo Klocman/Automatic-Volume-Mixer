@@ -103,9 +103,9 @@ namespace Avm
                 //var linkMenu = new MenuItem("Open website...") { Enabled = false };
                 //linkMenu.MenuItems.Add(new MenuItem("Homepage"));
                 //linkMenu.MenuItems.Add(new MenuItem("Rate this app"));
-                _trayMenuStrip.MenuItems.Add("Send feedback", (x, y) => PremadeDialogs.ProcessStartSafe(
+                _trayMenuStrip.MenuItems.Add("Send feedback", (x, y) => PremadeDialogs.StartProcessSafely(
                     @"http://klocmansoftware.weebly.com/feedback--contact.html"));
-                _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.ProcessStartSafe(
+                _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.StartProcessSafely(
                     @"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB9DA2P8KQX52"));
                 //_trayMenuStrip.MenuItems.Add(linkMenu);
                 _trayMenuStrip.MenuItems.Add(new MenuItem("Help") { Enabled = false });

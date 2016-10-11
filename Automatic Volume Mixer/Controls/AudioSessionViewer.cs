@@ -21,7 +21,7 @@ namespace Avm.Controls
 
         public void RefreshSessions(StateUpdateEventArgs stateUpdateEventArgs)
         {
-            var query = from session in stateUpdateEventArgs.Sessions.Values
+            var query = from session in stateUpdateEventArgs.Sessions
                         orderby session.IsSystemSoundSession descending, session.DisplayName ascending
                         select new ListViewItem(new[]
                         {

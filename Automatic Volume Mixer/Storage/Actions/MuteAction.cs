@@ -20,8 +20,7 @@ namespace Avm.Storage.Actions
         {
             if (!Enabled) return;
 
-            foreach (var session in args.Sessions.Where(x => MatchSessionName(x.Value))
-                .Select(x => x.Value))
+            foreach (var session in args.Sessions.Where(MatchSessionName))
             {
                 switch (NewState)
                 {

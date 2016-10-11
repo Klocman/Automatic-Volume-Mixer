@@ -42,8 +42,8 @@ namespace Avm.Storage.Actions
         {
             if (!Enabled) return;
 
-            var targets = args.Sessions.Where(x => MatchSessionName(x.Value))
-                .Select(x => new KeyValuePair<AudioSession, float>(x.Value, x.Value.MasterVolume)).ToList();
+            var targets = args.Sessions.Where(MatchSessionName)
+                .Select(x => new KeyValuePair<AudioSession, float>(x, x.MasterVolume)).ToList();
 
             if (!targets.Any()) return;
 

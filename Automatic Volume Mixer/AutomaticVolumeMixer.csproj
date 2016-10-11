@@ -39,10 +39,6 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSCore, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CSCore.1.0.0.0\lib\net35-client\CSCore.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PortableSettingsProvider">
       <HintPath>..\..\..\..\..\..\..\SVN\.Lib\PortableSettingsProvider.dll</HintPath>
     </Reference>
@@ -68,6 +64,7 @@
       <DependentUpon>AudioSessionViewer.cs</DependentUpon>
     </Compile>
     <Compile Include="Daemon\AudioSession.cs" />
+    <Compile Include="Daemon\AudioSessionUpdateThread.cs" />
     <Compile Include="Daemon\MixerWatcher.cs" />
     <Compile Include="Daemon\GatheringService.cs" />
     <Compile Include="Daemon\SessionCreatedNotification.cs" />
@@ -164,7 +161,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -191,6 +187,10 @@
     <ProjectReference Include="..\..\..\..\..\..\..\SVN\KlocTools\KlocTools\KlocTools.csproj">
       <Project>{4f843421-01d4-48e8-b88b-cdf30dd671a4}</Project>
       <Name>KlocTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\cscore-master\CSCore\CSCore.csproj">
+      <Project>{c3dccfe3-dd3f-4eee-849b-33e355b1e064}</Project>
+      <Name>CSCore</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

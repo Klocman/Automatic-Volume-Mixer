@@ -20,8 +20,8 @@ namespace Avm.Storage.Triggers
         {
             if (!Enabled) return false;
 
-            return args.Sessions.Where(x => MatchSessionName(x.Value))
-                .Any(session => session.Value.IsMuted == (MuteState == MuteStates.Muted));
+            return args.Sessions.Where(MatchSessionName)
+                .Any(session => session.IsMuted == (MuteState == MuteStates.Muted));
         }
 
         public override object Clone()
@@ -33,8 +33,7 @@ namespace Avm.Storage.Triggers
         {
             if (!Enabled) return;
 
-            foreach (var session in args.Sessions.Where(x => MatchSessionName(x.Value))
-                .Select(x => x.Value))
+            foreach (var session in args.Sessions.Where(MatchSessionName))
             {
                 switch (MuteState)
                 {

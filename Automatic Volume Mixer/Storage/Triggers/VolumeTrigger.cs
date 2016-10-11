@@ -12,7 +12,7 @@ namespace Avm.Storage.Triggers
     }
 
     [DefaultProperty(nameof(VolumeValue))]
-    public class VolumeTrigger : RunningSessionTrigger, ITrigger
+    public class VolumeTrigger : RunningSessionTrigger
     {
         [Category("Volume")]
         [Description("Volume to compare against.")]
@@ -38,10 +38,10 @@ namespace Avm.Storage.Triggers
         {
             if (!Enabled) return false;
 
-            foreach (var compareSuccess in args.Sessions.Where(x => MatchSessionName(x.Value))
+            foreach (var compareSuccess in args.Sessions.Where(MatchSessionName)
                 .Select(x => ComparePeakValue(ComparisonTarget == VolumeType.Peak
-                ? x.Value.PeakValue
-                : x.Value.MasterVolume))
+                ? x.PeakValue
+                : x.MasterVolume))
                 )
             {
                 switch (ComparisonType)

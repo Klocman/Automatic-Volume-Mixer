@@ -32,7 +32,7 @@ namespace Avm.Storage
 
         protected bool MatchUpdate(StateUpdateEventArgs args)
         {
-            return args.Sessions.Any(x => MatchSessionName(x.Value));
+            return args.Sessions.Any(MatchSessionName);
         }
 
         protected bool MatchSessionName(AudioSession target)
