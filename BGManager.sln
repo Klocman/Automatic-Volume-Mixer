@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60E95644-E6C8-4370-A28B-2CFDC6F02C73}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticVolumeMixer", "Automatic Volume Mixer\AutomaticVolumeMixer.csproj", "{D6EC13B0-407C-4F3F-9263-0C95A54BE322}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticVolumeMixerTests", "Automatic Volume MixerTests\AutomaticVolumeMixerTests.csproj", "{DF8DD0A9-CB3F-4F5A-A6BD-A00548A8A692}"
