@@ -13,8 +13,7 @@ namespace Avm.Storage.Triggers
 
         public bool ProcessTrigger(object sender, StateUpdateEventArgs args)
         {
-            //TODO buffer processes
-            return Enabled && Process.GetProcesses().Any(x => MatchName(x.ProcessName));
+            return Enabled && MixerWatcher.ProcessBuffer.Any(x => MatchName(x.ProcessName));
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Avm.Daemon
 
         public GatheringService()
         {
-            _timer = new Timer(500) {AutoReset = false};
+            _timer = new Timer(600) {AutoReset = false};
             _timer.Elapsed += (sender, args) => SendAudioSessionUpdate(args.SignalTime);
             _timer.Disposed += (sender, args) => _mixerUpdateSubject.OnCompleted();
 

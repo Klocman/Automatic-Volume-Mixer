@@ -1,18 +1,18 @@
 using System;
 using System.Diagnostics;
+using System.Linq;
 using CSCore.CoreAudioAPI;
 
 namespace Avm.Daemon
 {
     public sealed class AudioSession
     {
-        private readonly AudioSessionUpdateThread _audioSessionUpdateThread;
-
+        private readonly AudioSessionUpdateThread _updateThread;
         private readonly object _bufferedValuesLock = new object();
         private readonly AudioSessionControl _sessionControl;
         private Process _assignedProcess;
         private bool _assignedProcessGotten;
-        private int _assignedProcessId;
+        private int _assignedProcessId = -1;
 
         // Values that don't change once set
         private AudioMeterInformation _audioInformation;
@@ -31,7 +31,7 @@ namespace Avm.Daemon
         public AudioSession(AudioSessionControl sessionControl, AudioSessionUpdateThread updateThread)
         {
             _sessionControl = sessionControl;
-            _audioSessionUpdateThread = updateThread;
+            _updateThread = updateThread;
         }
 
         private AudioSessionControl2 SessionControl2 =>
@@ -53,7 +53,7 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (!_peakValue.HasValue)
-                        _audioSessionUpdateThread.RunSynchronizedAction(
+                        _updateThread.RunSynchronizedAction(
                             () => _peakValue = AudioInformation.PeakValue > 1 || AudioInformation.PeakValue < 0
                                 ? 0
                                 : AudioInformation.PeakValue);
@@ -69,7 +69,7 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (!_masterVolume.HasValue)
-                        _audioSessionUpdateThread.RunSynchronizedAction(() => _masterVolume = AudioVolume.MasterVolume);
+                        _updateThread.RunSynchronizedAction(() => _masterVolume = AudioVolume.MasterVolume);
                     return _masterVolume.Value;
                 }
             }
@@ -80,7 +80,7 @@ namespace Avm.Daemon
                     var trimmed = Math.Max(Math.Min(value, 1f), 0f);
                     if (!_masterVolume.HasValue || Math.Abs(trimmed - _masterVolume.Value) > 0.0001f)
                     {
-                        _audioSessionUpdateThread.RunSynchronizedAction(() => AudioVolume.MasterVolume = trimmed);
+                        _updateThread.RunSynchronizedAction(() => AudioVolume.MasterVolume = trimmed);
                         _masterVolume = trimmed;
                     }
                 }
@@ -94,7 +94,7 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (!_isMuted.HasValue)
-                        _audioSessionUpdateThread.RunSynchronizedAction(() => _isMuted = AudioVolume.IsMuted);
+                        _updateThread.RunSynchronizedAction(() => _isMuted = AudioVolume.IsMuted);
                     return _isMuted.Value;
                 }
             }
@@ -104,21 +104,21 @@ namespace Avm.Daemon
                 {
                     if (IsMuted == value) return;
 
-                    _audioSessionUpdateThread.RunSynchronizedAction(() => AudioVolume.IsMuted = value);
+                    _updateThread.RunSynchronizedAction(() => AudioVolume.IsMuted = value);
                     _isMuted = value;
                 }
             }
         }
 
         /// <summary>
-        ///     Whether the session has multiple processes assigned to it. Buffered once since it will not change.
+        ///     Whether the session has multiple Processes assigned to it. Buffered once since it will not change.
         /// </summary>
         public bool IsSingleProcessSession
         {
             get
             {
                 if (!_isSingleProcessSession.HasValue)
-                    _audioSessionUpdateThread.RunSynchronizedAction(
+                    _updateThread.RunSynchronizedAction(
                         () => _isSingleProcessSession = SessionControl2.IsSingleProcessSession);
                 return _isSingleProcessSession.Value;
             }
@@ -132,7 +132,7 @@ namespace Avm.Daemon
             get
             {
                 if (!_isSystemSoundSession.HasValue)
-                    _audioSessionUpdateThread.RunSynchronizedAction(
+                    _updateThread.RunSynchronizedAction(
                         () => _isSystemSoundSession = SessionControl2.IsSystemSoundSession);
                 return _isSystemSoundSession.Value;
             }
@@ -149,7 +149,7 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (_displayName == null)
-                        _audioSessionUpdateThread.RunSynchronizedAction(() => _displayName = GetDisplayName());
+                        _updateThread.RunSynchronizedAction(() => _displayName = GetDisplayName());
                     return _displayName;
                 }
             }
@@ -159,12 +159,12 @@ namespace Avm.Daemon
         {
             get
             {
-                if (_assignedProcessId <= 0)
+                if (_assignedProcessId < 0)
                 {
                     if (_assignedProcess != null)
                         _assignedProcessId = _assignedProcess.Id;
                     else
-                        _audioSessionUpdateThread.RunSynchronizedAction(
+                        _updateThread.RunSynchronizedAction(
                             () => _assignedProcessId = SessionControl2.ProcessID);
                 }
                 return _assignedProcessId;
@@ -181,22 +181,7 @@ namespace Avm.Daemon
             {
                 if (!_assignedProcessGotten)
                 {
-                    if (_assignedProcessId > 0)
-                    {
-                        try
-                        {
-                            _assignedProcess = Process.GetProcessById(_assignedProcessId);
-                        }
-                        catch (ArgumentException)
-                        {
-                            _audioSessionUpdateThread.RunSynchronizedAction(
-                                () => _assignedProcess = SessionControl2.Process);
-                        }
-                    }
-                    else
-                    {
-                        _audioSessionUpdateThread.RunSynchronizedAction(() => _assignedProcess = SessionControl2.Process);
-                    }
+                    _assignedProcess = MixerWatcher.ProcessBuffer.FirstOrDefault(p => p.Id.Equals(AssignedProcessId));
                     _assignedProcessGotten = true;
                 }
                 else if (_assignedProcess != null && _assignedProcessId != 0 && _assignedProcess.HasExited)
@@ -214,7 +199,7 @@ namespace Avm.Daemon
             get
             {
                 if (_processName == null)
-                    _audioSessionUpdateThread.RunSynchronizedAction(
+                    _updateThread.RunSynchronizedAction(
                         () => _processName = AssignedProcess?.ProcessName ?? string.Empty);
                 return _processName;
             }
@@ -236,13 +221,13 @@ namespace Avm.Daemon
 
         public void RegisterAudioSessionNotification(IAudioSessionEvents notifications)
         {
-            _audioSessionUpdateThread.RunSynchronizedAction(
+            _updateThread.RunSynchronizedAction(
                 () => _sessionControl.RegisterAudioSessionNotification(notifications));
         }
 
         public void UnregisterAudioSessionNotification(IAudioSessionEvents notifications)
         {
-            _audioSessionUpdateThread.RunSynchronizedAction(
+            _updateThread.RunSynchronizedAction(
                 () => _sessionControl.UnregisterAudioSessionNotification(notifications));
         }
 
@@ -251,7 +236,7 @@ namespace Avm.Daemon
             if (IsSystemSoundSession)
                 return "System Sounds";
             string name = null;
-            _audioSessionUpdateThread.RunSynchronizedAction(() =>
+            _updateThread.RunSynchronizedAction(() =>
             {
                 if (!string.IsNullOrWhiteSpace(_sessionControl.DisplayName))
                 {
@@ -274,14 +259,12 @@ namespace Avm.Daemon
         public bool CheckSessionIsValid()
         {
             var result = false;
-            _audioSessionUpdateThread.RunSynchronizedAction(() =>
+            _updateThread.RunSynchronizedAction(() =>
             {
                 try
                 {
                     result = IsSystemSoundSession || ((!IsSingleProcessSession || (AssignedProcess != null))
-                                                      &&
-                                                      _sessionControl.SessionState !=
-                                                      AudioSessionState.AudioSessionStateExpired);
+                                                      && _sessionControl.SessionState != AudioSessionState.AudioSessionStateExpired);
                 }
                 catch
                 {

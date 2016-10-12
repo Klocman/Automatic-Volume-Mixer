@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using CSCore.CoreAudioAPI;
+using Klocman.Extensions;
 
 namespace Avm.Daemon
 {
     public class MixerWatcher : IDisposable
     {
-        private readonly AudioSessionUpdateThread _audioSessionUpdateThread = new AudioSessionUpdateThread();
+        internal AudioSessionUpdateThread UpdateThread { get; } = new AudioSessionUpdateThread();
+        internal static Process[] ProcessBuffer { get; private set; }
         private readonly object _disposeLock = new object();
 
         private AudioSessionEnumerator _currentSessionEnumerator;
@@ -26,7 +29,7 @@ namespace Avm.Daemon
 
                 _currentSessionEnumerator?.Dispose();
                 _currentSessionManager?.Dispose();
-                _audioSessionUpdateThread.Dispose();
+                UpdateThread.Dispose();
             }
         }
 
@@ -43,13 +46,14 @@ namespace Avm.Daemon
 
                 var results = new List<AudioSession>();
 
-                _audioSessionUpdateThread.RunSynchronizedAction(() =>
+                UpdateThread.RunSynchronizedAction(() =>
                 {
                     _currentSessionManager = GetDefaultAudioSessionManager2(DataFlow.Render);
                     _currentSessionEnumerator = _currentSessionManager.GetSessionEnumerator();
+                    ProcessBuffer = Process.GetProcesses();
 
                     results.AddRange(_currentSessionEnumerator
-                        .Select(x => new AudioSession(x, _audioSessionUpdateThread))
+                        .Select(x => new AudioSession(x, UpdateThread))
                         .Where(x => x.CheckSessionIsValid()));
                 });
 
