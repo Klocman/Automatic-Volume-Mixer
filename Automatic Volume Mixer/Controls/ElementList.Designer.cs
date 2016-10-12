@@ -54,15 +54,18 @@
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
+            this.listView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listView.HideSelection = false;
             this.listView.Location = new System.Drawing.Point(0, 19);
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
             this.listView.ShowItemToolTips = true;
             this.listView.Size = new System.Drawing.Size(503, 386);
-            this.listView.TabIndex = 5;
+            this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
+            this.listView.DoubleClick += new System.EventHandler(this.buttonTriggerEdit_Click);
+            this.listView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listView_KeyDown);
             // 
             // columnHeaderActionType
             // 
@@ -90,7 +93,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 405);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(503, 28);
-            this.panel2.TabIndex = 4;
+            this.panel2.TabIndex = 1;
             // 
             // buttonActionUp
             // 
@@ -98,7 +101,7 @@
             this.buttonActionUp.Location = new System.Drawing.Point(377, 5);
             this.buttonActionUp.Name = "buttonActionUp";
             this.buttonActionUp.Size = new System.Drawing.Size(60, 23);
-            this.buttonActionUp.TabIndex = 1;
+            this.buttonActionUp.TabIndex = 4;
             this.buttonActionUp.Text = "Up";
             this.buttonActionUp.UseVisualStyleBackColor = true;
             this.buttonActionUp.Click += new System.EventHandler(this.buttonActionUp_Click);
@@ -109,7 +112,7 @@
             this.buttonActionDown.Location = new System.Drawing.Point(443, 5);
             this.buttonActionDown.Name = "buttonActionDown";
             this.buttonActionDown.Size = new System.Drawing.Size(60, 23);
-            this.buttonActionDown.TabIndex = 1;
+            this.buttonActionDown.TabIndex = 5;
             this.buttonActionDown.Text = "Down";
             this.buttonActionDown.UseVisualStyleBackColor = true;
             this.buttonActionDown.Click += new System.EventHandler(this.buttonActionDown_Click);
@@ -131,7 +134,7 @@
             this.buttonDuplicate.Location = new System.Drawing.Point(162, 5);
             this.buttonDuplicate.Name = "buttonDuplicate";
             this.buttonDuplicate.Size = new System.Drawing.Size(75, 23);
-            this.buttonDuplicate.TabIndex = 0;
+            this.buttonDuplicate.TabIndex = 2;
             this.buttonDuplicate.Text = "Copy";
             this.buttonDuplicate.UseVisualStyleBackColor = true;
             this.buttonDuplicate.Click += new System.EventHandler(this.buttonDuplicate_Click);
@@ -142,7 +145,7 @@
             this.buttonActionDelete.Location = new System.Drawing.Point(243, 5);
             this.buttonActionDelete.Name = "buttonActionDelete";
             this.buttonActionDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonActionDelete.TabIndex = 0;
+            this.buttonActionDelete.TabIndex = 3;
             this.buttonActionDelete.Text = "Delete";
             this.buttonActionDelete.UseVisualStyleBackColor = true;
             this.buttonActionDelete.Click += new System.EventHandler(this.buttonTriggerDelete_Click);
@@ -153,7 +156,7 @@
             this.buttonActionEdit.Location = new System.Drawing.Point(81, 5);
             this.buttonActionEdit.Name = "buttonActionEdit";
             this.buttonActionEdit.Size = new System.Drawing.Size(75, 23);
-            this.buttonActionEdit.TabIndex = 0;
+            this.buttonActionEdit.TabIndex = 1;
             this.buttonActionEdit.Text = "Edit...";
             this.buttonActionEdit.UseVisualStyleBackColor = true;
             this.buttonActionEdit.Click += new System.EventHandler(this.buttonTriggerEdit_Click);
@@ -166,7 +169,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 19);
-            this.flowLayoutPanel1.TabIndex = 6;
+            this.flowLayoutPanel1.TabIndex = 0;
             // 
             // label1
             // 
@@ -176,7 +179,7 @@
             this.label1.Name = "label1";
             this.label1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
             this.label1.Size = new System.Drawing.Size(64, 19);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Element List";
             // 
             // ElementList

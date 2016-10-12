@@ -188,5 +188,11 @@ namespace Avm.Controls
                 ReloadList();
             }
         }
+
+        private void listView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+                buttonTriggerEdit_Click(sender, e);
+        }
     }
 }
