@@ -302,3 +302,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 BGManager.sln
+
+# Other
+/Automatic Volume Mixer/Licence.txt

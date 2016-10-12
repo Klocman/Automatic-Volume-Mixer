@@ -76,7 +76,7 @@ namespace Avm.Forms
             throw new ArgumentException("Type is not supported", nameof(targetItem));
         }
 
-        private static IBasicInfo ShowDialog(IWin32Window owner, IBasicInfo targetItem, Type[] validTypes)
+        private static IBasicInfo ShowDialog(IWin32Window owner, ICloneable targetItem, Type[] validTypes)
         {
             using (var window = new ElementEditor())
             {

@@ -86,11 +86,7 @@ namespace Avm.Forms
                 window.SetupEditor(targetBehaviour != null ? (Behaviour) targetBehaviour.Clone() : new Behaviour(),
                     groups);
 
-                if (window.ShowDialog(owner) != DialogResult.OK)
-                    return null;
-
-
-                return window.CurrentBehaviour;
+                return window.ShowDialog(owner) == DialogResult.OK ? window.CurrentBehaviour : null;
             }
         }
 

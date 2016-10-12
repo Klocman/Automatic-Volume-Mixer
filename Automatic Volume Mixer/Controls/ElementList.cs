@@ -85,7 +85,7 @@ namespace Avm.Controls
             var newListItems = ManualOrdering ? _itemListEnumerator : _itemListEnumerator.OrderBy(x => x.Name);
 
             Func<IBasicInfo, ListViewItem> createLvi =
-                x => new ListViewItem(new[] { x.Name, x.Enabled.ToString(), x.GetDetails() }) { Tag = x };
+                x => new ListViewItem(new[] {x.Name, x.Enabled.ToString(), x.GetDetails()}) {Tag = x};
 
             if (_groupKeyGetter != null)
             {
@@ -133,7 +133,7 @@ namespace Avm.Controls
         }
 
         private IBasicInfo GetSelectedElement() => listView.SelectedItems.Cast<ListViewItem>()
-            .Select(x => (IBasicInfo)x.Tag).FirstOrDefault();
+            .Select(x => (IBasicInfo) x.Tag).FirstOrDefault();
 
         private void buttonTriggerEdit_Click(object sender, EventArgs e)
         {
@@ -184,7 +184,7 @@ namespace Avm.Controls
             var selected = GetSelectedElement();
             if (selected != null)
             {
-                _addItem((IBasicInfo)selected.Clone());
+                _addItem((IBasicInfo) selected.Clone());
                 ReloadList();
             }
         }

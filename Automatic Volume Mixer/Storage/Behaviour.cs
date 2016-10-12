@@ -50,7 +50,7 @@ namespace Avm.Storage
         public double MinimalTimedTriggerDelay { get; set; }
 
         [DefaultValue("")]
-        public string Group { get; set; } = string.Empty;
+        public string Group { get; set; }
 
         public string GetDetails()
         {

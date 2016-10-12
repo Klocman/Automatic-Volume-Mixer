@@ -10,7 +10,7 @@ namespace Avm.Storage.Triggers
         {
             return MemberwiseClone();
         }
-        
+
         public bool ProcessTrigger(object sender, StateUpdateEventArgs args)
         {
             //TODO buffer processes

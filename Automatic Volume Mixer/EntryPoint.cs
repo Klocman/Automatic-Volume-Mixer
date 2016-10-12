@@ -48,7 +48,6 @@ namespace Avm
                     }
                 }
                 _automaticMixer.BehavioursEnabled = !Settings.Default.DisableBehaviours;
-                _automaticMixer.Start();
 
                 Application.ApplicationExit += OnApplicationExit;
             }
@@ -88,14 +87,14 @@ namespace Avm
                 };
                 _trayMenuStrip.Popup += (sender, args) => disableBehaviours.Checked = !_automaticMixer.BehavioursEnabled;
 
-                _trayMenuStrip.MenuItems.Add(new MenuItem("Automatic Volume Mixer") { Enabled = false });
+                _trayMenuStrip.MenuItems.Add(new MenuItem("Automatic Volume Mixer") {Enabled = false});
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add("Open event manager", OpenConfigManager);
                 //_trayMenuStrip.MenuItems.Add(new MenuItem("Open normalization manager", OpenConfigManager));
                 _trayMenuStrip.MenuItems.Add("View audio sessions", OpenSessionPreview);
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add(disableBehaviours);
-                _trayMenuStrip.MenuItems.Add(new MenuItem("Start AVM on boot") { Enabled = false });
+                _trayMenuStrip.MenuItems.Add(new MenuItem("Start AVM on boot") {Enabled = false});
                 _trayMenuStrip.MenuItems.Add("Reset audio session volumes",
                     (sender, args) => _automaticMixer.ResetSessionVolumes());
                 _trayMenuStrip.MenuItems.Add("Options", OpenSettings);
@@ -108,7 +107,7 @@ namespace Avm
                 _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.StartProcessSafely(
                     @"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB9DA2P8KQX52"));
                 //_trayMenuStrip.MenuItems.Add(linkMenu);
-                _trayMenuStrip.MenuItems.Add(new MenuItem("Help") { Enabled = false });
+                _trayMenuStrip.MenuItems.Add(new MenuItem("Help") {Enabled = false});
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add("Shut down AVM", (sender, args) => Application.Exit());
             }
@@ -172,7 +171,6 @@ namespace Avm
 
             private void OnApplicationExit(object sender, EventArgs eventArgs)
             {
-                _automaticMixer.Stop();
                 _trayIcon.Dispose();
                 _trayMenuStrip.Dispose();
 
@@ -185,6 +183,8 @@ namespace Avm
                 Settings.Default.Behaviours = _automaticMixer.GetBehavioursAsString(true);
                 Settings.Default.DisableBehaviours = !_automaticMixer.BehavioursEnabled;
                 Settings.Default.Save();
+
+                _automaticMixer.Dispose();
             }
         }
     }

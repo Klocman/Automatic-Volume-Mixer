@@ -6,7 +6,7 @@ using Avm.Storage;
 
 namespace Avm
 {
-    public class AutomaticMixer
+    public class AutomaticMixer : IDisposable
     {
         private readonly BehaviourManager _behaviourManager;
         //private readonly List<Behaviour> _behaviours = new List<Behaviour>();
@@ -16,8 +16,7 @@ namespace Avm
         {
             _behaviourManager = new BehaviourManager();
             _gatheringService = new GatheringService();
-            _gatheringService.Stop();
-            _gatheringService.StateUpdate += OnMixerStateUpdate;
+            _gatheringService.AudioSessionUpdate.Subscribe(args => OnMixerStateUpdate(_gatheringService, args));
         }
 
         public bool BehavioursEnabled
@@ -33,7 +32,7 @@ namespace Avm
         }
 
         //public IList<Behaviour> Behaviours => _behaviours;
-        public IEnumerable<KeyValuePair<int, AudioSession>> Sessions => _gatheringService.AudioSessions;
+        public IEnumerable<AudioSession> Sessions => _gatheringService.AudioSessions;
         public IEnumerable<Behaviour> Behaviours => _behaviourManager.GetBehaviours() ?? Enumerable.Empty<Behaviour>();
 
         public IEnumerable<string> GroupNamesEnumerable
@@ -41,10 +40,15 @@ namespace Avm
             get
             {
                 return from groupName in Behaviours.Select(x => x.Group).Distinct()
-                       where !string.IsNullOrEmpty(groupName)
-                       orderby groupName ascending
-                       select groupName;
+                    where !string.IsNullOrEmpty(groupName)
+                    orderby groupName ascending
+                    select groupName;
             }
+        }
+
+        public void Dispose()
+        {
+            _gatheringService.Dispose();
         }
 
         public event EventHandler BehavioursEnabledChanged;
@@ -54,8 +58,8 @@ namespace Avm
         {
             foreach (var kvp in Sessions)
             {
-                kvp.Value.IsMuted = false;
-                kvp.Value.MasterVolume = 1;
+                kvp.IsMuted = false;
+                kvp.MasterVolume = 1;
             }
         }
 
@@ -74,16 +78,6 @@ namespace Avm
             MixerStateUpdate?.Invoke(sender, e);
 
             _behaviourManager?.ProcessEvents(sender, e);
-        }
-
-        public void Start()
-        {
-            _gatheringService.Start();
-        }
-
-        public void Stop()
-        {
-            _gatheringService.Stop();
         }
 
         public string GetBehavioursAsString(bool disableFormatting)

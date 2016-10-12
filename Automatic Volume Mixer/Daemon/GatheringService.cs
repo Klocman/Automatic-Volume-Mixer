@@ -2,83 +2,69 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Timers;
-using Klocman.Extensions;
 using Klocman.Forms.Tools;
 
 namespace Avm.Daemon
 {
-    public class GatheringService
+    public class GatheringService : IDisposable
     {
+        private readonly ReplaySubject<StateUpdateEventArgs> _mixerUpdateSubject =
+            new ReplaySubject<StateUpdateEventArgs>(1);
+
         private readonly MixerWatcher _mixerWatcher = new MixerWatcher();
         private readonly Timer _timer;
-        private bool _running;
 
         public GatheringService()
         {
-            _timer = new Timer(500) { AutoReset = false };
-            _timer.Elapsed += StateUpdateTimerElapsed;
-            
-            //_mixerWatcher.AudioSessionsChanged += OnAudioSessionsChanged;
+            _timer = new Timer(500) {AutoReset = false};
+            _timer.Elapsed += (sender, args) => SendAudioSessionUpdate(args.SignalTime);
+            _timer.Disposed += (sender, args) => _mixerUpdateSubject.OnCompleted();
+
+            // Make sure that the ReplaySubject always has a value
+            SendAudioSessionUpdate(DateTime.Now);
+            _timer.Start();
         }
+
+        public IObservable<StateUpdateEventArgs> AudioSessionUpdate => _mixerUpdateSubject.AsObservable();
 
         /// <summary>
         ///     Updates per second
         /// </summary>
         public double RefreshRate
         {
-            get { return 1000 / _timer.Interval; }
-            set { _timer.Interval = (1 / value) * 1000; }
+            get { return 1000/_timer.Interval; }
+            set { _timer.Interval = 1/value*1000; }
         }
 
-        //TODO not assigned
-        public IEnumerable<KeyValuePair<int, AudioSession>> AudioSessions { get; private set; }
+        public IEnumerable<AudioSession> AudioSessions => _mixerUpdateSubject.Take(1).ToEnumerable().First().Sessions;
 
-        private void OnAudioSessionsChanged(object sender, EventArgs eventArgs)
+        public void Dispose()
         {
-            AudioSessionsChanged?.Invoke(sender, eventArgs);
+            _timer.Dispose();
+            _mixerUpdateSubject.OnCompleted();
+            _mixerWatcher.Dispose();
         }
 
-        public event EventHandler AudioSessionsChanged;
-
-        public void Start()
+        private void SendAudioSessionUpdate(DateTime triggerTime)
         {
-            _running = true;
-            _timer.Start();
-        }
-
-        public void Stop()
-        {
-            _timer.Stop();
-            _running = false;
-        }
-
-        public event EventHandler<StateUpdateEventArgs> StateUpdate;
-
-        private void StateUpdateTimerElapsed(object sender, ElapsedEventArgs e)
-        {
-            //TODO BUG Don't re-get the sessions every single time? Less efficient, but makes lots of code unnecessary
-            var sessionstemp = _mixerWatcher.GetAudioSessions().ToList();
-
             try
             {
-                foreach (var session in sessionstemp)
-                {
-                    session.FlushBufferedValues();
-                }
-
-                StateUpdate?.Invoke(this, new StateUpdateEventArgs(sessionstemp.AsReadOnly(), DateTime.Now));
+                _mixerUpdateSubject.OnNext(
+                    new StateUpdateEventArgs(_mixerWatcher.GetAudioSessions().ToList().AsReadOnly(), triggerTime));
             }
             catch (Exception ex)
             {
-                PremadeDialogs.GenericError(ex);
-                Debug.WriteLine($@"Exception in {nameof(StateUpdateTimerElapsed)} -> {ex.Message}" +
+                Debug.WriteLine($@"Exception in {nameof(SendAudioSessionUpdate)} -> {ex.Message}" +
                                 (ex.InnerException == null ? string.Empty : $@"-> {ex.InnerException.Message}"));
+                PremadeDialogs.GenericError(ex);
+                _mixerUpdateSubject.OnError(ex);
             }
             finally
             {
-                if (_running)
-                    _timer.Start();
+                _timer.Start();
             }
         }
     }

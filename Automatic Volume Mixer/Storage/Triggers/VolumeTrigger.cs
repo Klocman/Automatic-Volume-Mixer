@@ -40,8 +40,8 @@ namespace Avm.Storage.Triggers
 
             foreach (var compareSuccess in args.Sessions.Where(MatchSessionName)
                 .Select(x => ComparePeakValue(ComparisonTarget == VolumeType.Peak
-                ? x.PeakValue
-                : x.MasterVolume))
+                    ? x.PeakValue
+                    : x.MasterVolume))
                 )
             {
                 switch (ComparisonType)
@@ -87,10 +87,10 @@ namespace Avm.Storage.Triggers
             {
                 case VolumeComparisonType.AnyAbove:
                 case VolumeComparisonType.AllAbove:
-                    return (VolumeValue < compareTarget);
+                    return VolumeValue < compareTarget;
                 case VolumeComparisonType.AllBelow:
                 case VolumeComparisonType.AnyBelow:
-                    return (VolumeValue > compareTarget);
+                    return VolumeValue > compareTarget;
 
                 default:
                     throw new InvalidEnumArgumentException();

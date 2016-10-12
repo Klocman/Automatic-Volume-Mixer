@@ -13,8 +13,6 @@ namespace Avm.Storage
 {
     public class BehaviourManager
     {
-        public event EventHandler BehavioursChanged;
-
         private readonly List<BehaviourInfo> _behaviours;
         private readonly Dictionary<string, BehaviourGroup> _groupedTasks;
         private readonly XmlSerializer _xmls = new XmlSerializer(typeof (Behaviour));
@@ -24,6 +22,9 @@ namespace Avm.Storage
             _behaviours = new List<BehaviourInfo>(); //behaviours.Select(x => new BehaviourInfo(x)));
             _groupedTasks = new Dictionary<string, BehaviourGroup>();
         }
+
+        public bool Enabled { get; set; } = true;
+        public event EventHandler BehavioursChanged;
 
         public IEnumerable<Behaviour> GetBehaviours() => _behaviours.Select(x => x.Behaviour);
 
@@ -157,12 +158,10 @@ namespace Avm.Storage
             }
         }
 
-        public bool Enabled { get; set; } = true;
-
         private void ProcessEvent(BehaviourInfo behaviourInfo, object sender, StateUpdateEventArgs args)
         {
-            if(!Enabled) return;
-            
+            if (!Enabled) return;
+
             var targetBehaviour = behaviourInfo.Behaviour;
 
             if (!targetBehaviour.Enabled) return;
@@ -175,11 +174,11 @@ namespace Avm.Storage
             switch (targetBehaviour.TriggeringKind)
             {
                 case TriggeringMode.RisingEdge:
-                    result = (!behaviourInfo.LastTriggerState && newTriggerState);
+                    result = !behaviourInfo.LastTriggerState && newTriggerState;
                     break;
 
                 case TriggeringMode.FallingEdge:
-                    result = (behaviourInfo.LastTriggerState && !newTriggerState);
+                    result = behaviourInfo.LastTriggerState && !newTriggerState;
                     break;
 
                 case TriggeringMode.Always:

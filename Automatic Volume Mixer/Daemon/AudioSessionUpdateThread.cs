@@ -3,18 +3,16 @@ using System.Threading;
 
 namespace Avm.Daemon
 {
-    internal class AudioSessionUpdateThread : IDisposable
+    public class AudioSessionUpdateThread : IDisposable
     {
-        public static AudioSessionUpdateThread Instance { get; } = new AudioSessionUpdateThread();
-
+        private readonly object _actionLock = new object();
         private readonly AutoResetEvent _reset = new AutoResetEvent(false);
         private readonly AutoResetEvent _reset2 = new AutoResetEvent(false);
         private readonly Thread _workerThread;
 
         private Action _currentAction;
-        private readonly object _actionLock = new object();
 
-        private AudioSessionUpdateThread()
+        public AudioSessionUpdateThread()
         {
             _workerThread = new Thread(Thread)
             {
@@ -24,20 +22,28 @@ namespace Avm.Daemon
             _workerThread.Start();
         }
 
+        public bool Disposed { get; private set; }
+
+        public void Dispose()
+        {
+            Disposed = true;
+            _reset.Set();
+        }
+
         private void Thread()
         {
             while (true)
             {
                 _reset.WaitOne();
-                    if (Disposed) return;
+                if (Disposed) return;
 
-                    _currentAction();
-                    _reset2.Set();
+                _currentAction();
+                _reset2.Set();
             }
         }
 
         /// <summary>
-        /// Runs the supplied action on the AudioSessionUpdateThread and waits until it is done before returning.
+        ///     Runs the supplied action on the AudioSessionUpdateThread and waits until it is done before returning.
         /// </summary>
         public void RunSynchronizedAction(Action a)
         {
@@ -60,13 +66,6 @@ namespace Avm.Daemon
                     _reset2.WaitOne();
                 }
             }
-        }
-
-        public bool Disposed { get; private set; }
-        public void Dispose()
-        {
-            Disposed = true;
-            _reset.Set();
         }
     }
 }

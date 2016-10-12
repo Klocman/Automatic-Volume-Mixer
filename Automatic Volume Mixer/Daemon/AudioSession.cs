@@ -6,65 +6,42 @@ namespace Avm.Daemon
 {
     public sealed class AudioSession
     {
-        private AudioMeterInformation _audioInformation;
-        private SimpleAudioVolume _audioVolume;
-        private AudioSessionControl2 _sessionControl2;
+        private readonly AudioSessionUpdateThread _audioSessionUpdateThread;
 
-        // Values that don't change
-        private bool? _isSingleProcessSession;
-        private bool? _isSystemSoundSession;
-        private string _processName;
-        private int _assignedProcessId;
+        private readonly object _bufferedValuesLock = new object();
+        private readonly AudioSessionControl _sessionControl;
         private Process _assignedProcess;
         private bool _assignedProcessGotten;
+        private int _assignedProcessId;
+
+        // Values that don't change once set
+        private AudioMeterInformation _audioInformation;
+        private SimpleAudioVolume _audioVolume;
+        private string _displayName;
+        private bool? _isMuted;
+        private bool? _isSingleProcessSession;
+        private bool? _isSystemSoundSession;
 
         // Values that can change, can be reset by FlushBufferedValues()
         private float? _masterVolume;
         private float? _peakValue;
-        private string _displayName;
-        private bool? _isMuted;
+        private string _processName;
+        private AudioSessionControl2 _sessionControl2;
 
-        private readonly object _bufferedValuesLock = new object();
-
-        /// <summary>
-        ///     Clears buffers to force some of the more critical values to be re-evaluated upon next request
-        /// </summary>
-        public void FlushBufferedValues()
+        public AudioSession(AudioSessionControl sessionControl, AudioSessionUpdateThread updateThread)
         {
-            lock (_bufferedValuesLock)
-            {
-                _displayName = null;
-                _peakValue = null;
-                _masterVolume = null;
-                _isMuted = null;
-            }
+            _sessionControl = sessionControl;
+            _audioSessionUpdateThread = updateThread;
         }
-
-        public AudioSession(AudioSessionControl sessionControl)
-        {
-            SessionControl = sessionControl;
-        }
-
-        public void RegisterAudioSessionNotification(IAudioSessionEvents notifications)
-        {
-            AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => SessionControl.RegisterAudioSessionNotification(notifications));
-        }
-
-        public void UnregisterAudioSessionNotification(IAudioSessionEvents notifications)
-        {
-            AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => SessionControl.UnregisterAudioSessionNotification(notifications));
-        }
-
-        private AudioSessionControl SessionControl { get; }
 
         private AudioSessionControl2 SessionControl2 =>
-            _sessionControl2 ?? (_sessionControl2 = SessionControl.QueryInterface<AudioSessionControl2>());
+            _sessionControl2 ?? (_sessionControl2 = _sessionControl.QueryInterface<AudioSessionControl2>());
 
         private AudioMeterInformation AudioInformation =>
-            _audioInformation ?? (_audioInformation = SessionControl.QueryInterface<AudioMeterInformation>());
+            _audioInformation ?? (_audioInformation = _sessionControl.QueryInterface<AudioMeterInformation>());
 
         private SimpleAudioVolume AudioVolume =>
-            _audioVolume ?? (_audioVolume = SessionControl.QueryInterface<SimpleAudioVolume>());
+            _audioVolume ?? (_audioVolume = _sessionControl.QueryInterface<SimpleAudioVolume>());
 
         /// <summary>
         ///     Peak value of the application's sound output at this moment
@@ -76,8 +53,10 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (!_peakValue.HasValue)
-                        AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _peakValue = AudioInformation.PeakValue > 1 || AudioInformation.PeakValue < 0
-                        ? 0 : AudioInformation.PeakValue);
+                        _audioSessionUpdateThread.RunSynchronizedAction(
+                            () => _peakValue = AudioInformation.PeakValue > 1 || AudioInformation.PeakValue < 0
+                                ? 0
+                                : AudioInformation.PeakValue);
                     return _peakValue.Value;
                 }
             }
@@ -90,7 +69,7 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (!_masterVolume.HasValue)
-                        AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _masterVolume = AudioVolume.MasterVolume);
+                        _audioSessionUpdateThread.RunSynchronizedAction(() => _masterVolume = AudioVolume.MasterVolume);
                     return _masterVolume.Value;
                 }
             }
@@ -101,7 +80,7 @@ namespace Avm.Daemon
                     var trimmed = Math.Max(Math.Min(value, 1f), 0f);
                     if (!_masterVolume.HasValue || Math.Abs(trimmed - _masterVolume.Value) > 0.0001f)
                     {
-                        AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => AudioVolume.MasterVolume = trimmed);
+                        _audioSessionUpdateThread.RunSynchronizedAction(() => AudioVolume.MasterVolume = trimmed);
                         _masterVolume = trimmed;
                     }
                 }
@@ -115,7 +94,7 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (!_isMuted.HasValue)
-                        AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _isMuted = AudioVolume.IsMuted);
+                        _audioSessionUpdateThread.RunSynchronizedAction(() => _isMuted = AudioVolume.IsMuted);
                     return _isMuted.Value;
                 }
             }
@@ -125,7 +104,7 @@ namespace Avm.Daemon
                 {
                     if (IsMuted == value) return;
 
-                    AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => AudioVolume.IsMuted = value);
+                    _audioSessionUpdateThread.RunSynchronizedAction(() => AudioVolume.IsMuted = value);
                     _isMuted = value;
                 }
             }
@@ -139,7 +118,8 @@ namespace Avm.Daemon
             get
             {
                 if (!_isSingleProcessSession.HasValue)
-                    AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _isSingleProcessSession = SessionControl2.IsSingleProcessSession);
+                    _audioSessionUpdateThread.RunSynchronizedAction(
+                        () => _isSingleProcessSession = SessionControl2.IsSingleProcessSession);
                 return _isSingleProcessSession.Value;
             }
         }
@@ -152,7 +132,8 @@ namespace Avm.Daemon
             get
             {
                 if (!_isSystemSoundSession.HasValue)
-                    AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _isSystemSoundSession = SessionControl2.IsSystemSoundSession);
+                    _audioSessionUpdateThread.RunSynchronizedAction(
+                        () => _isSystemSoundSession = SessionControl2.IsSystemSoundSession);
                 return _isSystemSoundSession.Value;
             }
         }
@@ -168,7 +149,7 @@ namespace Avm.Daemon
                 lock (_bufferedValuesLock)
                 {
                     if (_displayName == null)
-                        AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _displayName = GetDisplayName());
+                        _audioSessionUpdateThread.RunSynchronizedAction(() => _displayName = GetDisplayName());
                     return _displayName;
                 }
             }
@@ -183,7 +164,8 @@ namespace Avm.Daemon
                     if (_assignedProcess != null)
                         _assignedProcessId = _assignedProcess.Id;
                     else
-                        AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _assignedProcessId = SessionControl2.ProcessID);
+                        _audioSessionUpdateThread.RunSynchronizedAction(
+                            () => _assignedProcessId = SessionControl2.ProcessID);
                 }
                 return _assignedProcessId;
             }
@@ -207,12 +189,13 @@ namespace Avm.Daemon
                         }
                         catch (ArgumentException)
                         {
-                            AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _assignedProcess = SessionControl2.Process);
+                            _audioSessionUpdateThread.RunSynchronizedAction(
+                                () => _assignedProcess = SessionControl2.Process);
                         }
                     }
                     else
                     {
-                        AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _assignedProcess = SessionControl2.Process);
+                        _audioSessionUpdateThread.RunSynchronizedAction(() => _assignedProcess = SessionControl2.Process);
                     }
                     _assignedProcessGotten = true;
                 }
@@ -231,9 +214,36 @@ namespace Avm.Daemon
             get
             {
                 if (_processName == null)
-                    AudioSessionUpdateThread.Instance.RunSynchronizedAction(() => _processName = AssignedProcess?.ProcessName ?? string.Empty);
+                    _audioSessionUpdateThread.RunSynchronizedAction(
+                        () => _processName = AssignedProcess?.ProcessName ?? string.Empty);
                 return _processName;
             }
+        }
+
+        /// <summary>
+        ///     Clears buffers to force some of the more critical values to be re-evaluated upon next request
+        /// </summary>
+        public void FlushBufferedValues()
+        {
+            lock (_bufferedValuesLock)
+            {
+                _displayName = null;
+                _peakValue = null;
+                _masterVolume = null;
+                _isMuted = null;
+            }
+        }
+
+        public void RegisterAudioSessionNotification(IAudioSessionEvents notifications)
+        {
+            _audioSessionUpdateThread.RunSynchronizedAction(
+                () => _sessionControl.RegisterAudioSessionNotification(notifications));
+        }
+
+        public void UnregisterAudioSessionNotification(IAudioSessionEvents notifications)
+        {
+            _audioSessionUpdateThread.RunSynchronizedAction(
+                () => _sessionControl.UnregisterAudioSessionNotification(notifications));
         }
 
         private string GetDisplayName()
@@ -241,11 +251,11 @@ namespace Avm.Daemon
             if (IsSystemSoundSession)
                 return "System Sounds";
             string name = null;
-            AudioSessionUpdateThread.Instance.RunSynchronizedAction(() =>
+            _audioSessionUpdateThread.RunSynchronizedAction(() =>
             {
-                if (!string.IsNullOrWhiteSpace(SessionControl.DisplayName))
+                if (!string.IsNullOrWhiteSpace(_sessionControl.DisplayName))
                 {
-                    name = SessionControl.DisplayName;
+                    name = _sessionControl.DisplayName;
                     return;
                 }
 
@@ -264,12 +274,14 @@ namespace Avm.Daemon
         public bool CheckSessionIsValid()
         {
             var result = false;
-            AudioSessionUpdateThread.Instance.RunSynchronizedAction(() =>
+            _audioSessionUpdateThread.RunSynchronizedAction(() =>
             {
                 try
                 {
                     result = IsSystemSoundSession || ((!IsSingleProcessSession || (AssignedProcess != null))
-                           && SessionControl.SessionState != AudioSessionState.AudioSessionStateExpired);
+                                                      &&
+                                                      _sessionControl.SessionState !=
+                                                      AudioSessionState.AudioSessionStateExpired);
                 }
                 catch
                 {
