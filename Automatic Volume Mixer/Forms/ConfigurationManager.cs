@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Avm.Properties;
 using Avm.Storage;
@@ -13,6 +14,8 @@ namespace Avm.Forms
 
         public ConfigurationManager(AutomaticMixer mixer)
         {
+            Opacity = 0;
+
             _mixer = mixer;
             InitializeComponent();
 
@@ -67,6 +70,16 @@ namespace Avm.Forms
         private void ConfigurationManager_FormClosed(object sender, FormClosedEventArgs e)
         {
             _mixer.BehavioursChanged -= OnBehavioursChanged;
+        }
+
+        private void ConfigurationManager_Shown(object sender, EventArgs e)
+        {
+            var screen = Screen.FromPoint(MousePosition).WorkingArea;
+            Location = new Point(Math.Max(Math.Min(MousePosition.X - Width / 2, screen.X + screen.Width - Width), screen.X),
+                Math.Max(Math.Min(MousePosition.Y - Height / 2, screen.Y + screen.Height - Height), screen.Y));
+            
+            Update();
+            Opacity = 1;
         }
     }
 }

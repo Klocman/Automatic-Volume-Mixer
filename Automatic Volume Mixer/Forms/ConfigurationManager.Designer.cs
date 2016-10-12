@@ -50,7 +50,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(8, 8);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(499, 25);
-            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.TabIndex = 0;
             // 
             // toolStripButtonImport
             // 
@@ -94,7 +94,7 @@
             this.elementList1.Name = "elementList1";
             this.elementList1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
             this.elementList1.Size = new System.Drawing.Size(499, 269);
-            this.elementList1.TabIndex = 0;
+            this.elementList1.TabIndex = 1;
             this.elementList1.Text = "This list contains events that will be tested and executed depending on the state" +
     " of the audio sessions.";
             // 
@@ -107,8 +107,9 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "ConfigurationManager";
             this.Padding = new System.Windows.Forms.Padding(8);
-            this.Text = "Event Manager";
+            this.Text = "Automatic Volume Mixer - Event Manager";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConfigurationManager_FormClosed);
+            this.Shown += new System.EventHandler(this.ConfigurationManager_Shown);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
