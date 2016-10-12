@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 using Avm.Forms;
 using Avm.Properties;
 using Klocman.Extensions;
 using Klocman.Forms.Tools;
+using Microsoft.Win32;
 
 namespace Avm
 {
@@ -32,7 +34,7 @@ namespace Avm
             public MainApplication()
             {
                 InitializeInterface();
-
+                
                 _automaticMixer = new AutomaticMixer();
                 if (!string.IsNullOrWhiteSpace(Settings.Default.Behaviours))
                 {
@@ -87,14 +89,33 @@ namespace Avm
                 };
                 _trayMenuStrip.Popup += (sender, args) => disableBehaviours.Checked = !_automaticMixer.BehavioursEnabled;
 
-                _trayMenuStrip.MenuItems.Add(new MenuItem("Automatic Volume Mixer") {Enabled = false});
+                _trayMenuStrip.MenuItems.Add(new MenuItem("Automatic Volume Mixer") { Enabled = false });
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add("Open event manager", OpenConfigManager);
                 //_trayMenuStrip.MenuItems.Add(new MenuItem("Open normalization manager", OpenConfigManager));
                 _trayMenuStrip.MenuItems.Add("View audio sessions", OpenSessionPreview);
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add(disableBehaviours);
-                _trayMenuStrip.MenuItems.Add(new MenuItem("Start AVM on boot") {Enabled = false});
+
+                var startOnBootMenuItem = new MenuItem("Start AVM on boot") { Checked = false };
+                using (var key = Registry.LocalMachine
+                    .OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", false))
+                {
+                    startOnBootMenuItem.Checked = key.GetValue("AutomaticVolumeMixer") != null;
+                }
+                startOnBootMenuItem.Click += (sender, args) =>
+                {
+                    startOnBootMenuItem.Checked = !startOnBootMenuItem.Checked;
+                    using (var key = Registry.LocalMachine
+                        .OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true))
+                    {
+                        if (startOnBootMenuItem.Checked)
+                            key.SetValue("AutomaticVolumeMixer", $"\"{Assembly.GetExecutingAssembly().Location}\"");
+                        else
+                            key.DeleteValue("AutomaticVolumeMixer");
+                    }
+                };
+                _trayMenuStrip.MenuItems.Add(startOnBootMenuItem);
                 _trayMenuStrip.MenuItems.Add("Reset audio session volumes",
                     (sender, args) => _automaticMixer.ResetSessionVolumes());
                 _trayMenuStrip.MenuItems.Add("Options", OpenSettings);
@@ -107,7 +128,7 @@ namespace Avm
                 _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.StartProcessSafely(
                     @"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB9DA2P8KQX52"));
                 //_trayMenuStrip.MenuItems.Add(linkMenu);
-                _trayMenuStrip.MenuItems.Add(new MenuItem("Help") {Enabled = false});
+                _trayMenuStrip.MenuItems.Add(new MenuItem("Help") { Enabled = false });
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add("Shut down AVM", (sender, args) => Application.Exit());
             }
