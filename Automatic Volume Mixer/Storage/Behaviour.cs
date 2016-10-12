@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Text;
 using System.Xml.Serialization;
+using Klocman.Extensions;
 
 namespace Avm.Storage
 {
@@ -54,7 +57,20 @@ namespace Avm.Storage
 
         public string GetDetails()
         {
-            return $@"{Triggers.Count} trigger(s), {Conditions.Count} condition(s) and {Actions.Count} action(s).";
+            var sb = new StringBuilder();
+            sb.Append(Triggers.Count);
+            sb.Append(" trigger");
+            sb.AppendIf(Triggers.Count != 1, "s");
+            sb.Append(", ");
+            sb.Append(Conditions.Count);
+            sb.Append(" condition");
+            sb.AppendIf(Conditions.Count != 1, "s");
+            sb.Append(", and ");
+            sb.Append(Actions.Count);
+            sb.Append(" action");
+            sb.AppendIf(Actions.Count != 1, "s");
+            sb.Append(".");
+            return sb.ToString();
         }
 
         public string Name { get; set; }
