@@ -33,13 +33,13 @@ namespace Avm
 
         //public IList<Behaviour> Behaviours => _behaviours;
         public IEnumerable<AudioSession> Sessions => _gatheringService.AudioSessions;
-        public IEnumerable<Behaviour> Behaviours => _behaviourManager.GetBehaviours() ?? Enumerable.Empty<Behaviour>();
+        public IEnumerable<Behaviour> GetBehaviours () => _behaviourManager.GetBehaviours() ?? Enumerable.Empty<Behaviour>();
 
         public IEnumerable<string> GroupNamesEnumerable
         {
             get
             {
-                return from groupName in Behaviours.Select(x => x.Group).Distinct()
+                return from groupName in GetBehaviours().Select(x => x.Group).Distinct()
                     where !string.IsNullOrEmpty(groupName)
                     orderby groupName ascending
                     select groupName;

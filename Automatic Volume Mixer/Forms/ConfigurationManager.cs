@@ -23,7 +23,7 @@ namespace Avm.Forms
 
             toolStrip1.Renderer = new ToolStripProfessionalRenderer(new StandardSystemColorTable());
 
-            elementList1.SetupList(_mixer.Behaviours,
+            elementList1.SetupList(_mixer.GetBehaviours(),
                 (window, info) =>
                     BehaviourEditor.ShowDialog(window, (Behaviour)info, _mixer.GroupNamesEnumerable),
                 info => _mixer.AddBehaviour((Behaviour)info),
@@ -39,7 +39,7 @@ namespace Avm.Forms
             this.SafeInvoke(() =>
             {
                 if (!IsDisposed)
-                    elementList1.ReloadList(_mixer.Behaviours);
+                    elementList1.ReloadList(_mixer.GetBehaviours());
             });
         }
 

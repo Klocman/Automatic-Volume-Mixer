@@ -26,7 +26,13 @@ namespace Avm.Storage
         public bool Enabled { get; set; } = true;
         public event EventHandler BehavioursChanged;
 
-        public IEnumerable<Behaviour> GetBehaviours() => _behaviours.Select(x => x.Behaviour);
+        public IEnumerable<Behaviour> GetBehaviours()
+        {
+            lock (_behaviours)
+            {
+                return _behaviours.Select(x => x.Behaviour).ToList();
+            }
+        }
 
         private static XElement SerializeList(XName rootName, IEnumerable items, bool indent)
         {
@@ -66,20 +72,25 @@ namespace Avm.Storage
             var xdoc = new XDocument();
             var root = new XElement("BehaviourList");
             xdoc.Add(root);
-            foreach (var behaviour in _behaviours.Select(x => x.Behaviour))
+
+            lock (_behaviours)
             {
-                var xBase = new XElement("Behaviour");
-                root.Add(xBase);
+                foreach (var behaviour in _behaviours.Select(x => x.Behaviour))
+                {
+                    var xBase = new XElement("Behaviour");
+                    root.Add(xBase);
 
-                var xProp = new XElement("Properties");
-                xBase.Add(xProp);
+                    var xProp = new XElement("Properties");
+                    xBase.Add(xProp);
 
-                xProp.Value = _xmls.Serialize(behaviour, !disableFormatting);
+                    xProp.Value = _xmls.Serialize(behaviour, !disableFormatting);
 
-                xBase.Add(SerializeList(nameof(behaviour.Triggers), behaviour.Triggers, !disableFormatting));
-                xBase.Add(SerializeList(nameof(behaviour.Conditions), behaviour.Conditions, !disableFormatting));
-                xBase.Add(SerializeList(nameof(behaviour.Actions), behaviour.Actions, !disableFormatting));
+                    xBase.Add(SerializeList(nameof(behaviour.Triggers), behaviour.Triggers, !disableFormatting));
+                    xBase.Add(SerializeList(nameof(behaviour.Conditions), behaviour.Conditions, !disableFormatting));
+                    xBase.Add(SerializeList(nameof(behaviour.Actions), behaviour.Actions, !disableFormatting));
+                }
             }
+
             return xdoc.ToString(disableFormatting ? SaveOptions.DisableFormatting : SaveOptions.None);
         }
 
@@ -111,31 +122,40 @@ namespace Avm.Storage
                 results.Add(behaviour);
             }
 
-            if (clearPrevious)
+            lock (_behaviours)
             {
-                _behaviours.Clear();
-                _groupedTasks.Clear();
+                if (clearPrevious)
+                {
+                    _behaviours.Clear();
+                    _groupedTasks.Clear();
+                }
+                _behaviours.AddRange(results.Select(x => new BehaviourInfo(x)));
+                BehavioursChanged?.Invoke(this, EventArgs.Empty);
             }
-            _behaviours.AddRange(results.Select(x => new BehaviourInfo(x)));
-            BehavioursChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void AddBehaviour(Behaviour item)
         {
-            _behaviours.Add(new BehaviourInfo(item));
+            lock (_behaviours)
+                _behaviours.Add(new BehaviourInfo(item));
             BehavioursChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public void RemoveBehaviour(Behaviour item)
         {
-            _behaviours.RemoveAll(x => x.Behaviour.Equals(item));
+            lock (_behaviours)
+                _behaviours.RemoveAll(x => x.Behaviour.Equals(item));
             BehavioursChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
         public void ProcessEvents(object sender, StateUpdateEventArgs args)
         {
-            //TODO: update by id's to the groups, abort tasks that run on removed sessions
-            foreach (var behaviourInfo in _behaviours)
+            List<BehaviourInfo> list;
+            lock (_behaviours)
+            {
+                list = _behaviours.ToList();
+            }
+            foreach (var behaviourInfo in list)
             {
                 ProcessEvent(behaviourInfo, sender, args);
             }
@@ -153,7 +173,7 @@ namespace Avm.Storage
             var lastTriggerTime = TriggerCounter.GetCounter(behaviourInfo.Behaviour).LastTriggerTime;
             if (lastTriggerTime.AddSeconds(behaviourInfo.Behaviour.CooldownPeriod) > args.SnapshotTime)
                 return;
-            
+
             var triggerTester = new Func<ITrigger, bool>(tr =>
             {
                 try
@@ -201,7 +221,7 @@ namespace Avm.Storage
                     {
                         if (behaviourInfo.InitialTriggerTime.Equals(DateTime.MaxValue))
                             break;
-                        
+
                         if (behaviourInfo.InitialTriggerTime.AddSeconds(targetBehaviour.MinimalTimedTriggerDelay)
                             <= args.SnapshotTime)
                         {
@@ -315,7 +335,7 @@ namespace Avm.Storage
             }
         }
     }
-    
+
     public sealed class TriggerCounter
     {
         private static Dictionary<Guid, TriggerCounter> Counters { get; } = new Dictionary<Guid, TriggerCounter>();
@@ -331,7 +351,7 @@ namespace Avm.Storage
         {
             return Counters.ContainsKey(item.Id) ? Counters[item.Id] : new TriggerCounter();
         }
-        
+
         public override string ToString()
         {
             return TriggerCount <= 0 ? "Never succedeed" : $"Succeeded {TriggerCount} times, last on {LastTriggerTime}";
