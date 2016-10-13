@@ -46,7 +46,7 @@
             this.ClientSize = new System.Drawing.Size(488, 189);
             this.Controls.Add(this.audioSessionViewer1);
             this.Name = "AudioSessionWindow";
-            this.Text = "Running audio sessions";
+            this.Text = "Automatic Volume Mixer - Running audio sessions";
             this.ResumeLayout(false);
 
         }

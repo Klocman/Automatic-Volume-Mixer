@@ -29,74 +29,96 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.checkBoxBoot = new System.Windows.Forms.CheckBox();
             this.checkBoxRestoreSessionSettings = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.buttonOk = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.maskedTextBox1);
             this.panel1.Controls.Add(this.flowLayoutPanel1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(8, 8);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(268, 258);
+            this.panel1.Size = new System.Drawing.Size(267, 49);
             this.panel1.TabIndex = 3;
-            // 
-            // checkBoxRestoreSessionSettings
-            // 
-            this.checkBoxRestoreSessionSettings.AutoSize = true;
-            this.checkBoxRestoreSessionSettings.Location = new System.Drawing.Point(3, 3);
-            this.checkBoxRestoreSessionSettings.Name = "checkBoxRestoreSessionSettings";
-            this.checkBoxRestoreSessionSettings.Size = new System.Drawing.Size(258, 17);
-            this.checkBoxRestoreSessionSettings.TabIndex = 1;
-            this.checkBoxRestoreSessionSettings.Text = "Restore settings of running audio sessions on exit";
-            this.checkBoxRestoreSessionSettings.UseVisualStyleBackColor = true;
-            // 
-            // panel2
-            // 
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(8, 266);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(268, 57);
-            this.panel2.TabIndex = 4;
             // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.Controls.Add(this.checkBoxBoot);
             this.flowLayoutPanel1.Controls.Add(this.checkBoxRestoreSessionSettings);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(268, 23);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(267, 46);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // maskedTextBox1
+            // checkBoxBoot
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(104, 159);
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
-            this.maskedTextBox1.TabIndex = 3;
+            this.checkBoxBoot.AutoSize = true;
+            this.checkBoxBoot.Location = new System.Drawing.Point(3, 3);
+            this.checkBoxBoot.Name = "checkBoxBoot";
+            this.checkBoxBoot.Size = new System.Drawing.Size(148, 17);
+            this.checkBoxBoot.TabIndex = 2;
+            this.checkBoxBoot.Text = "Start AVM on system boot\r\n";
+            this.checkBoxBoot.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxRestoreSessionSettings
+            // 
+            this.checkBoxRestoreSessionSettings.AutoSize = true;
+            this.checkBoxRestoreSessionSettings.Location = new System.Drawing.Point(3, 26);
+            this.checkBoxRestoreSessionSettings.Name = "checkBoxRestoreSessionSettings";
+            this.checkBoxRestoreSessionSettings.Size = new System.Drawing.Size(249, 17);
+            this.checkBoxRestoreSessionSettings.TabIndex = 1;
+            this.checkBoxRestoreSessionSettings.Text = "Reset settings of running audio sessions on exit";
+            this.checkBoxRestoreSessionSettings.UseVisualStyleBackColor = true;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.buttonOk);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(8, 57);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(267, 29);
+            this.panel2.TabIndex = 4;
+            // 
+            // buttonOk
+            // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOk.Location = new System.Drawing.Point(192, 6);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.TabIndex = 0;
+            this.buttonOk.Text = "Close";
+            this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // SettingsWindow
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 331);
+            this.CancelButton = this.buttonOk;
+            this.ClientSize = new System.Drawing.Size(283, 94);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "SettingsWindow";
             this.Padding = new System.Windows.Forms.Padding(8);
-            this.Text = "AVM Settings";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Automatic Volume Mixer - Settings";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -105,8 +127,9 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxRestoreSessionSettings;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.CheckBox checkBoxBoot;
+        private System.Windows.Forms.Button buttonOk;
     }
 }

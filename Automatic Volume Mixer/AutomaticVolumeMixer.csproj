@@ -103,6 +103,7 @@
     <Compile Include="Forms\SettingsWindow.Designer.cs">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.cs" />
     <Compile Include="Storage\Actions\DelayAction.cs" />
     <Compile Include="Storage\MuteStates.cs" />
     <Compile Include="Storage\Triggers\MuteTrigger.cs" />

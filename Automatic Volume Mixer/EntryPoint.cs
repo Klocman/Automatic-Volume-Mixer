@@ -1,12 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 using Avm.Forms;
 using Avm.Properties;
 using Klocman.Extensions;
 using Klocman.Forms.Tools;
-using Microsoft.Win32;
 
 namespace Avm
 {
@@ -91,7 +89,7 @@ namespace Avm
 
                 _trayMenuStrip.MenuItems.Add(new MenuItem("Automatic Volume Mixer") { Enabled = false });
                 _trayMenuStrip.MenuItems.Add("-");
-                var openMain = new MenuItem("Open event manager") {DefaultItem = true};
+                var openMain = new MenuItem("Open event manager") { DefaultItem = true };
                 openMain.Click += OpenConfigManager;
                 _trayMenuStrip.MenuItems.Add(openMain);
                 //_trayMenuStrip.MenuItems.Add(new MenuItem("Open normalization manager", OpenConfigManager));
@@ -99,43 +97,21 @@ namespace Avm
                 _trayMenuStrip.MenuItems.Add("-");
                 //TODO _trayMenuStrip.MenuItems.Add(disableBehaviours);
 
-                //TODO Move to settings?
-                var startOnBootMenuItem = new MenuItem("Start AVM on boot") { Checked = false };
-                using (var key = Registry.LocalMachine
-                    .OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", false))
-                {
-                    startOnBootMenuItem.Checked = key.GetValue("AutomaticVolumeMixer") != null;
-                }
-                startOnBootMenuItem.Click += (sender, args) =>
-                {
-                    startOnBootMenuItem.Checked = !startOnBootMenuItem.Checked;
-                    using (var key = Registry.LocalMachine
-                        .OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", true))
-                    {
-                        if (startOnBootMenuItem.Checked)
-                            key.SetValue("AutomaticVolumeMixer", $"\"{Assembly.GetExecutingAssembly().Location}\"");
-                        else
-                            key.DeleteValue("AutomaticVolumeMixer");
-                    }
-                };
-                _trayMenuStrip.MenuItems.Add(startOnBootMenuItem);
-                _trayMenuStrip.MenuItems.Add("Reset audio session volumes",
+                _trayMenuStrip.MenuItems.Add("Reset volumes of running audio sessions",
                     (sender, args) => _automaticMixer.ResetSessionVolumes());
-                _trayMenuStrip.MenuItems.Add("Options", OpenSettings);
+                _trayMenuStrip.MenuItems.Add("Settings", OpenSettings);
                 _trayMenuStrip.MenuItems.Add("-");
                 //var linkMenu = new MenuItem("Open website...") { Enabled = false };
                 //linkMenu.MenuItems.Add(new MenuItem("Homepage"));
                 //linkMenu.MenuItems.Add(new MenuItem("Rate this app"));
-                _trayMenuStrip.MenuItems.Add("Send feedback", (x, y) => PremadeDialogs.StartProcessSafely(
-                    @"http://klocmansoftware.weebly.com/feedback--contact.html"));
-                _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.StartProcessSafely(
-                    @"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB9DA2P8KQX52"));
+                _trayMenuStrip.MenuItems.Add("Send feedback", (x, y) => PremadeDialogs.StartProcessSafely(@"http://klocmansoftware.weebly.com/feedback--contact.html"));
+                _trayMenuStrip.MenuItems.Add("Bug reports", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer/issues"));
+                _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.StartProcessSafely(@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB9DA2P8KQX52"));
                 //_trayMenuStrip.MenuItems.Add(linkMenu);
-                _trayMenuStrip.MenuItems.Add(new MenuItem("Help") { Enabled = false });
+                _trayMenuStrip.MenuItems.Add("Help", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer"));
                 _trayMenuStrip.MenuItems.Add("-");
-                _trayMenuStrip.MenuItems.Add("Shut down AVM", (sender, args) => Application.Exit());
+                _trayMenuStrip.MenuItems.Add("Shut down Automatic Volume Mixer", (sender, args) => Application.Exit());
             }
-
             private void OpenSessionPreview(object sender, EventArgs e)
             {
                 if (_audioSessionWindow == null || _audioSessionWindow.IsDisposed)
