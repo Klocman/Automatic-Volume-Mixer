@@ -1,17 +1,14 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
-              GeneratedClassNamespace="Avm.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Avm.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Behaviours" Provider="PortableSettingsProvider.PortableSettingsProvider" Roaming="true"
-             Type="System.String" Scope="User">
+    <Setting Name="Behaviours" Provider="PortableSettingsProvider.PortableSettingsProvider" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="RestoreSessionSettingsOnExit" Type="System.Boolean" Scope="User">
+    <Setting Name="RestoreSessionSettingsOnExit" Provider="PortableSettingsProvider.PortableSettingsProvider" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="DisableBehaviours" Type="System.Boolean" Scope="User">
+    <Setting Name="DisableBehaviours" Provider="PortableSettingsProvider.PortableSettingsProvider" Roaming="true" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
