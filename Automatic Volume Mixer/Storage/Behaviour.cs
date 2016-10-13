@@ -31,6 +31,7 @@ namespace Avm.Storage
             TriggeringKind = other.TriggeringKind;
             Group = other.Group;
             MinimalTimedTriggerDelay = other.MinimalTimedTriggerDelay;
+            CooldownPeriod = other.CooldownPeriod;
 
             Triggers = new List<ITrigger>(other.Triggers.Select(trigger => (ITrigger) trigger.Clone()));
             Conditions = new List<ITrigger>(other.Conditions.Select(condition => (ITrigger) condition.Clone()));
@@ -53,6 +54,11 @@ namespace Avm.Storage
         ///     If during any update in between the trigger fails, the timer is reset.
         /// </summary>
         public double MinimalTimedTriggerDelay { get; set; }
+        
+        /// <summary>
+        /// After the behaviour triggers, disable it for this many seconds.
+        /// </summary>
+        public double CooldownPeriod { get; set; }
 
         [DefaultValue("")]
         public string Group { get; set; }

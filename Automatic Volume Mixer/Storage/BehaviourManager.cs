@@ -149,9 +149,11 @@ namespace Avm.Storage
 
             if (!targetBehaviour.Enabled) return;
 
-            //TODO process conditions before or after further checks
-            var result = false;
-
+            // Wait for the cooldown period before running again
+            var lastTriggerTime = TriggerCounter.GetCounter(behaviourInfo.Behaviour).LastTriggerTime;
+            if (lastTriggerTime.AddSeconds(behaviourInfo.Behaviour.CooldownPeriod) > args.SnapshotTime)
+                return;
+            
             var triggerTester = new Func<ITrigger, bool>(tr =>
             {
                 try
@@ -174,6 +176,7 @@ namespace Avm.Storage
             if (triggerTriggered)
                 triggerTriggered = targetBehaviour.Conditions.All(triggerTester);
 
+            var result = false;
             switch (targetBehaviour.TriggeringKind)
             {
                 case TriggeringMode.RisingEdge:

@@ -71,6 +71,9 @@ namespace Avm.Forms
             numericUpDown1.Value = Math.Min(
                 Math.Max((decimal) newBehaviour.MinimalTimedTriggerDelay, numericUpDown1.Minimum),
                 numericUpDown1.Maximum);
+            numericUpDown2.Value = Math.Min(
+                Math.Max((decimal)newBehaviour.CooldownPeriod, numericUpDown2.Minimum),
+                numericUpDown2.Maximum);
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -96,6 +99,7 @@ namespace Avm.Forms
                 Array.IndexOf(_triggeringKindControls, _triggeringKindControls.First(x => x.Checked))];
             CurrentBehaviour.Group = comboBoxGroup.Text;
             CurrentBehaviour.MinimalTimedTriggerDelay = (double) numericUpDown1.Value;
+            CurrentBehaviour.CooldownPeriod = (double)numericUpDown2.Value;
         }
     }
 }
