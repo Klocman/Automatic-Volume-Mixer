@@ -34,7 +34,7 @@ namespace Avm
             public MainApplication()
             {
                 InitializeInterface();
-                
+
                 _automaticMixer = new AutomaticMixer();
                 if (!string.IsNullOrWhiteSpace(Settings.Default.Behaviours))
                 {
@@ -81,22 +81,25 @@ namespace Avm
                     DefaultExt = "xml"
                 };
 
-                var disableBehaviours = new MenuItem("Disable all events");
+                var disableBehaviours = new MenuItem("Disable AVM");
                 disableBehaviours.Click += (sender, args) =>
                 {
                     disableBehaviours.Checked = !disableBehaviours.Checked;
                     _automaticMixer.BehavioursEnabled = !disableBehaviours.Checked;
                 };
-                _trayMenuStrip.Popup += (sender, args) => disableBehaviours.Checked = !_automaticMixer.BehavioursEnabled;
+                //_trayMenuStrip.Popup += (sender, args) => disableBehaviours.Checked = !_automaticMixer.BehavioursEnabled;
 
                 _trayMenuStrip.MenuItems.Add(new MenuItem("Automatic Volume Mixer") { Enabled = false });
                 _trayMenuStrip.MenuItems.Add("-");
-                _trayMenuStrip.MenuItems.Add("Open event manager", OpenConfigManager);
+                var openMain = new MenuItem("Open event manager") {DefaultItem = true};
+                openMain.Click += OpenConfigManager;
+                _trayMenuStrip.MenuItems.Add(openMain);
                 //_trayMenuStrip.MenuItems.Add(new MenuItem("Open normalization manager", OpenConfigManager));
                 _trayMenuStrip.MenuItems.Add("View audio sessions", OpenSessionPreview);
                 _trayMenuStrip.MenuItems.Add("-");
-                _trayMenuStrip.MenuItems.Add(disableBehaviours);
+                //TODO _trayMenuStrip.MenuItems.Add(disableBehaviours);
 
+                //TODO Move to settings?
                 var startOnBootMenuItem = new MenuItem("Start AVM on boot") { Checked = false };
                 using (var key = Registry.LocalMachine
                     .OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Run", false))
@@ -202,7 +205,7 @@ namespace Avm
                     _automaticMixer.ResetSessionVolumes();
 
                 Settings.Default.Behaviours = _automaticMixer.GetBehavioursAsString(true);
-                Settings.Default.DisableBehaviours = !_automaticMixer.BehavioursEnabled;
+                //TODO Settings.Default.DisableBehaviours = !_automaticMixer.BehavioursEnabled;
                 Settings.Default.Save();
 
                 _automaticMixer.Dispose();

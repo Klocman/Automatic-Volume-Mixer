@@ -8,6 +8,6 @@ namespace Avm.Storage
         string Name { get; set; }
         bool Enabled { get; set; }
         string GetDetails();
-        Guid ID { get; set; }
+        Guid Id { get; set; }
     }
 }

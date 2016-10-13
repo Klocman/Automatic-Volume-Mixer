@@ -198,20 +198,18 @@ namespace Avm.Storage
                     {
                         if (behaviourInfo.InitialTriggerTime.Equals(DateTime.MaxValue))
                             break;
-
-                        if (behaviourInfo.InitialTriggerTime.Equals(DateTime.MinValue))
-                            behaviourInfo.InitialTriggerTime = args.SnapshotTime;
-
+                        
                         if (behaviourInfo.InitialTriggerTime.AddSeconds(targetBehaviour.MinimalTimedTriggerDelay)
                             <= args.SnapshotTime)
                         {
                             behaviourInfo.InitialTriggerTime = DateTime.MaxValue;
+
                             result = true;
                         }
                     }
                     else
                     {
-                        behaviourInfo.InitialTriggerTime = DateTime.MinValue;
+                        behaviourInfo.InitialTriggerTime = args.SnapshotTime;
                     }
                     break;
 
@@ -321,19 +319,19 @@ namespace Avm.Storage
 
         public static void BumpCounter(IBasicInfo item, DateTime newDate)
         {
-            var trc = Counters.ContainsKey(item.ID) ? Counters[item.ID] : (Counters[item.ID] = new TriggerCounter());
+            var trc = Counters.ContainsKey(item.Id) ? Counters[item.Id] : (Counters[item.Id] = new TriggerCounter());
             trc.TriggerCount++;
             trc.LastTriggerTime = newDate;
         }
 
         public static TriggerCounter GetCounter(IBasicInfo item)
         {
-            return Counters.ContainsKey(item.ID) ? Counters[item.ID] : new TriggerCounter();
+            return Counters.ContainsKey(item.Id) ? Counters[item.Id] : new TriggerCounter();
         }
         
         public override string ToString()
         {
-            return TriggerCount <= 0 ? "Never triggered" : $"Triggered {TriggerCount} times, last on {LastTriggerTime}";
+            return TriggerCount <= 0 ? "Never succedeed" : $"Succeeded {TriggerCount} times, last on {LastTriggerTime}";
         }
 
         public DateTime LastTriggerTime { get; set; }

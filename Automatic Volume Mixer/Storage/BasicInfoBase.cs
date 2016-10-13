@@ -9,7 +9,7 @@ namespace Avm.Storage
     {
         protected BasicInfoBase()
         {
-            ID = Guid.NewGuid();
+            Id = Guid.NewGuid();
         }
 
         private static readonly IEnumerable<string> NameTrimmers = new[] {"trigger", "action"};
@@ -27,7 +27,9 @@ namespace Avm.Storage
             get { return _name ?? (_name = TrimName(GetType().Name)); }
             set { _name = value; }
         }
-        public Guid ID { get; set; }
+
+        [Browsable(false)]
+        public Guid Id { get; set; }
 
         public abstract string GetDetails();
         public abstract object Clone();
