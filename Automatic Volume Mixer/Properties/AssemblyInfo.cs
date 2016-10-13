@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 
 [assembly: AssemblyTitle("Automatic Volume Mixer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("A tool that allows automatization of Windows Volume Mixer based on user's rules. ")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Marcin Szeniak")]
 [assembly: AssemblyProduct("Automatic Volume Mixer")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,5 +35,4 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.0.*")]
