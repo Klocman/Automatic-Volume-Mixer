@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Avm.Forms;
 using Avm.Properties;
@@ -13,6 +14,10 @@ namespace Avm
         [STAThread]
         private static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
+            Application.ThreadException += NBug.Handler.ThreadException;
+            TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainApplication());
