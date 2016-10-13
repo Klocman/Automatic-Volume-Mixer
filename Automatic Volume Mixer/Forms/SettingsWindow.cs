@@ -2,6 +2,7 @@
 using System.Reflection;
 using System.Windows.Forms;
 using Avm.Properties;
+using Klocman.Extensions;
 using Klocman.Tools;
 
 namespace Avm.Forms
@@ -13,6 +14,8 @@ namespace Avm.Forms
 
         public SettingsWindow()
         {
+            Opacity = 0;
+
             InitializeComponent();
 
             Icon = Resources.editoricon;
@@ -37,6 +40,18 @@ namespace Avm.Forms
                 else
                     key.DeleteValue(RunKeyValueName);
             }
+        }
+
+        private void SettingsWindow_Shown(object sender, EventArgs e)
+        {
+            this.MoveCloseToCursor();
+            Update();
+            Opacity = 1;
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

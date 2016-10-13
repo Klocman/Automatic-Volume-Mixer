@@ -47,6 +47,7 @@
             this.Controls.Add(this.audioSessionViewer1);
             this.Name = "AudioSessionWindow";
             this.Text = "Automatic Volume Mixer - Running audio sessions";
+            this.Shown += new System.EventHandler(this.AudioSessionWindow_Shown);
             this.ResumeLayout(false);
 
         }

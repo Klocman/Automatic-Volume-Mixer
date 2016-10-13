@@ -13,6 +13,8 @@ namespace Avm.Forms
 
         public AudioSessionWindow(AutomaticMixer sourceMixer)
         {
+            Opacity = 0;
+
             InitializeComponent();
 
             Icon = Resources.editoricon;
@@ -42,6 +44,13 @@ namespace Avm.Forms
                 _sourceMixer.MixerStateUpdate += _updateDelegate;
             else
                 _sourceMixer.MixerStateUpdate -= _updateDelegate;
+        }
+
+        private void AudioSessionWindow_Shown(object sender, EventArgs e)
+        {
+            this.MoveCloseToCursor();
+            Update();
+            Opacity = 1;
         }
     }
 }

@@ -25,11 +25,11 @@ namespace Avm.Forms
 
             elementList1.SetupList(_mixer.Behaviours,
                 (window, info) =>
-                    BehaviourEditor.ShowDialog(window, (Behaviour) info, _mixer.GroupNamesEnumerable),
-                info => _mixer.AddBehaviour((Behaviour) info),
-                info => _mixer.RemoveBehaviour((Behaviour) info),
+                    BehaviourEditor.ShowDialog(window, (Behaviour)info, _mixer.GroupNamesEnumerable),
+                info => _mixer.AddBehaviour((Behaviour)info),
+                info => _mixer.RemoveBehaviour((Behaviour)info),
                 null, null,
-                info => ((Behaviour) info).Group);
+                info => ((Behaviour)info).Group);
 
             _mixer.BehavioursChanged += OnBehavioursChanged;
         }
@@ -74,10 +74,8 @@ namespace Avm.Forms
 
         private void ConfigurationManager_Shown(object sender, EventArgs e)
         {
-            var screen = Screen.FromPoint(MousePosition).WorkingArea;
-            Location = new Point(Math.Max(Math.Min(MousePosition.X - Width / 2, screen.X + screen.Width - Width), screen.X),
-                Math.Max(Math.Min(MousePosition.Y - Height / 2, screen.Y + screen.Height - Height), screen.Y));
-            
+            this.MoveCloseToCursor();
+
             Update();
             Opacity = 1;
         }

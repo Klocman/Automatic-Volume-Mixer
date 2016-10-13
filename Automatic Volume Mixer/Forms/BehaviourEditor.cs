@@ -85,7 +85,7 @@ namespace Avm.Forms
             {
                 window.SetupEditor(targetBehaviour != null ? (Behaviour) targetBehaviour.Clone() : new Behaviour(),
                     groups);
-
+                window.StartPosition = FormStartPosition.CenterParent;
                 return window.ShowDialog(owner) == DialogResult.OK ? window.CurrentBehaviour : null;
             }
         }
