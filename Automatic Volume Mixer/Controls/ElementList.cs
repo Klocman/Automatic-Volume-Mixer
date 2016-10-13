@@ -85,7 +85,7 @@ namespace Avm.Controls
             var newListItems = ManualOrdering ? _itemListEnumerator : _itemListEnumerator.OrderBy(x => x.Name);
 
             Func<IBasicInfo, ListViewItem> createLvi =
-                x => new ListViewItem(new[] {x.Name, x.Enabled.ToString(), x.GetDetails()}) {Tag = x};
+                x => new ListViewItem(new[] {x.Name, x.Enabled.ToString(), x.GetDetails(), TriggerCounter.GetCounter(x).ToString()}) {Tag = x};
 
             if (_groupKeyGetter != null)
             {

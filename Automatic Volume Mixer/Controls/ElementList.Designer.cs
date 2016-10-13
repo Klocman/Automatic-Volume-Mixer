@@ -32,6 +32,7 @@
             this.columnHeaderActionType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderActionEnabled = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderActionDetails = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderStats = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonActionUp = new System.Windows.Forms.Button();
             this.buttonActionDown = new System.Windows.Forms.Button();
@@ -50,7 +51,8 @@
             this.listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderActionType,
             this.columnHeaderActionEnabled,
-            this.columnHeaderActionDetails});
+            this.columnHeaderActionDetails,
+            this.columnHeaderStats});
             this.listView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView.FullRowSelect = true;
             this.listView.GridLines = true;
@@ -60,7 +62,7 @@
             this.listView.MultiSelect = false;
             this.listView.Name = "listView";
             this.listView.ShowItemToolTips = true;
-            this.listView.Size = new System.Drawing.Size(503, 386);
+            this.listView.Size = new System.Drawing.Size(852, 386);
             this.listView.TabIndex = 0;
             this.listView.UseCompatibleStateImageBehavior = false;
             this.listView.View = System.Windows.Forms.View.Details;
@@ -79,7 +81,12 @@
             // columnHeaderActionDetails
             // 
             this.columnHeaderActionDetails.Text = "Details";
-            this.columnHeaderActionDetails.Width = 257;
+            this.columnHeaderActionDetails.Width = 162;
+            // 
+            // columnHeaderStats
+            // 
+            this.columnHeaderStats.Text = "Statistics";
+            this.columnHeaderStats.Width = 163;
             // 
             // panel2
             // 
@@ -92,13 +99,13 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 405);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(503, 28);
+            this.panel2.Size = new System.Drawing.Size(852, 28);
             this.panel2.TabIndex = 1;
             // 
             // buttonActionUp
             // 
             this.buttonActionUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonActionUp.Location = new System.Drawing.Point(377, 5);
+            this.buttonActionUp.Location = new System.Drawing.Point(726, 5);
             this.buttonActionUp.Name = "buttonActionUp";
             this.buttonActionUp.Size = new System.Drawing.Size(60, 23);
             this.buttonActionUp.TabIndex = 4;
@@ -109,7 +116,7 @@
             // buttonActionDown
             // 
             this.buttonActionDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonActionDown.Location = new System.Drawing.Point(443, 5);
+            this.buttonActionDown.Location = new System.Drawing.Point(792, 5);
             this.buttonActionDown.Name = "buttonActionDown";
             this.buttonActionDown.Size = new System.Drawing.Size(60, 23);
             this.buttonActionDown.TabIndex = 5;
@@ -168,7 +175,7 @@
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(503, 19);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(852, 19);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -190,7 +197,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "ElementList";
-            this.Size = new System.Drawing.Size(503, 433);
+            this.Size = new System.Drawing.Size(852, 433);
             this.panel2.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
@@ -214,5 +221,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonDuplicate;
+        private System.Windows.Forms.ColumnHeader columnHeaderStats;
     }
 }

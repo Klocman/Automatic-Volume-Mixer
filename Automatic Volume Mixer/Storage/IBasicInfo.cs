@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 
 namespace Avm.Storage
 {
@@ -7,5 +8,6 @@ namespace Avm.Storage
         string Name { get; set; }
         bool Enabled { get; set; }
         string GetDetails();
+        Guid ID { get; set; }
     }
 }

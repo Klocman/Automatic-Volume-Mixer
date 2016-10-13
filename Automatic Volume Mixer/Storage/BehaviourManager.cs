@@ -15,11 +15,11 @@ namespace Avm.Storage
     {
         private readonly List<BehaviourInfo> _behaviours;
         private readonly Dictionary<string, BehaviourGroup> _groupedTasks;
-        private readonly XmlSerializer _xmls = new XmlSerializer(typeof (Behaviour));
+        private readonly XmlSerializer _xmls = new XmlSerializer(typeof(Behaviour));
 
-        public BehaviourManager() //IEnumerable<Behaviour> behaviours
+        public BehaviourManager()
         {
-            _behaviours = new List<BehaviourInfo>(); //behaviours.Select(x => new BehaviourInfo(x)));
+            _behaviours = new List<BehaviourInfo>();
             _groupedTasks = new Dictionary<string, BehaviourGroup>();
         }
 
@@ -53,12 +53,12 @@ namespace Avm.Storage
                 return Enumerable.Empty<object>();
 
             return from xElement in root.Elements()
-                let strType = xElement.Attribute("type")?.Value
-                where !string.IsNullOrEmpty(strType)
-                let type = Type.GetType(strType)
-                where type != null
-                let xmls = new XmlSerializer(type)
-                select xmls.Deserialize(xElement.Value);
+                   let strType = xElement.Attribute("type")?.Value
+                   where !string.IsNullOrEmpty(strType)
+                   let type = Type.GetType(strType)
+                   where type != null
+                   let xmls = new XmlSerializer(type)
+                   select xmls.Deserialize(xElement.Value);
         }
 
         public string SerializeBehaviours(bool disableFormatting)
@@ -98,7 +98,7 @@ namespace Avm.Storage
                     continue;
 
                 //var xPropReader = xProp.CreateReader();
-                var behaviour = (Behaviour) _xmls.Deserialize(xProp.Value);
+                var behaviour = (Behaviour)_xmls.Deserialize(xProp.Value);
                 //xPropReader.Dispose();
 
                 behaviour.Triggers = new List<ITrigger>(DeserializeList(xBase.Element(nameof(behaviour.Triggers)))
@@ -131,24 +131,7 @@ namespace Avm.Storage
             _behaviours.RemoveAll(x => x.Behaviour.Equals(item));
             BehavioursChanged?.Invoke(this, EventArgs.Empty);
         }
-
-        private static bool CheckTriggers(IEnumerable<ITrigger> triggers, object sender, StateUpdateEventArgs args)
-        {
-            foreach (var x in triggers)
-            {
-                try
-                {
-                    if (x.ProcessTrigger(sender, args))
-                        return true;
-                }
-                catch (Exception ex)
-                {
-                    DebugTools.WriteException(ex);
-                }
-            }
-            return false;
-        }
-
+        
         public void ProcessEvents(object sender, StateUpdateEventArgs args)
         {
             //TODO: update by id's to the groups, abort tasks that run on removed sessions
@@ -168,30 +151,50 @@ namespace Avm.Storage
 
             //TODO process conditions before or after further checks
             var result = false;
-            var newTriggerState = CheckTriggers(targetBehaviour.Triggers, sender, args)
-                                  && targetBehaviour.Conditions.All(x => x.ProcessTrigger(sender, args));
+
+            var triggerTester = new Func<ITrigger, bool>(tr =>
+            {
+                try
+                {
+                    if (tr.ProcessTrigger(sender, args))
+                    {
+                        TriggerCounter.BumpCounter(tr, args.SnapshotTime);
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugTools.WriteException(ex);
+                }
+                return false;
+            });
+
+            var triggerTriggered = targetBehaviour.Triggers.Any(triggerTester);
+
+            if (triggerTriggered)
+                triggerTriggered = targetBehaviour.Conditions.All(triggerTester);
 
             switch (targetBehaviour.TriggeringKind)
             {
                 case TriggeringMode.RisingEdge:
-                    result = !behaviourInfo.LastTriggerState && newTriggerState;
+                    result = !behaviourInfo.LastTriggerState && triggerTriggered;
                     break;
 
                 case TriggeringMode.FallingEdge:
-                    result = behaviourInfo.LastTriggerState && !newTriggerState;
+                    result = behaviourInfo.LastTriggerState && !triggerTriggered;
                     break;
 
                 case TriggeringMode.Always:
-                    result = newTriggerState;
+                    result = triggerTriggered;
                     break;
 
                 case TriggeringMode.BothEdges:
-                    result = (!behaviourInfo.LastTriggerState && newTriggerState)
-                             || (behaviourInfo.LastTriggerState && !newTriggerState);
+                    result = (!behaviourInfo.LastTriggerState && triggerTriggered)
+                             || (behaviourInfo.LastTriggerState && !triggerTriggered);
                     break;
 
                 case TriggeringMode.Timed:
-                    if (newTriggerState)
+                    if (triggerTriggered)
                     {
                         if (behaviourInfo.InitialTriggerTime.Equals(DateTime.MaxValue))
                             break;
@@ -216,11 +219,25 @@ namespace Avm.Storage
                     throw new InvalidEnumArgumentException();
             }
 
-            behaviourInfo.LastTriggerState = newTriggerState;
+            behaviourInfo.LastTriggerState = triggerTriggered;
 
             if (!result) return;
 
-            Action runActions = () => ExecuteActions(targetBehaviour.Actions, sender, args);
+            Action runActions = () =>
+            {
+                foreach (var action in targetBehaviour.Actions)
+                {
+                    try
+                    {
+                        action.ExecuteAction(sender, args);
+                        TriggerCounter.BumpCounter(action, args.SnapshotTime);
+                    }
+                    catch (Exception ex)
+                    {
+                        DebugTools.WriteException(ex);
+                    }
+                }
+            };
 
             if (string.IsNullOrEmpty(targetBehaviour.Group))
             {
@@ -243,24 +260,11 @@ namespace Avm.Storage
 
                 behaviourGroup.RunBehaviour(runActions, targetBehaviour);
             }
+
+            TriggerCounter.BumpCounter(behaviourInfo.Behaviour, args.SnapshotTime);
         }
 
-        private static void ExecuteActions(IEnumerable<IAction> actions, object sender, StateUpdateEventArgs args)
-        {
-            foreach (var action in actions)
-            {
-                try
-                {
-                    action.ExecuteAction(sender, args);
-                }
-                catch (Exception ex)
-                {
-                    DebugTools.WriteException(ex);
-                }
-            }
-        }
-
-        private sealed class BehaviourInfo
+        public sealed class BehaviourInfo
         {
             public BehaviourInfo(Behaviour behaviour)
             {
@@ -309,5 +313,30 @@ namespace Avm.Storage
                 }
             }
         }
+    }
+    
+    public sealed class TriggerCounter
+    {
+        private static Dictionary<Guid, TriggerCounter> Counters { get; } = new Dictionary<Guid, TriggerCounter>();
+
+        public static void BumpCounter(IBasicInfo item, DateTime newDate)
+        {
+            var trc = Counters.ContainsKey(item.ID) ? Counters[item.ID] : (Counters[item.ID] = new TriggerCounter());
+            trc.TriggerCount++;
+            trc.LastTriggerTime = newDate;
+        }
+
+        public static TriggerCounter GetCounter(IBasicInfo item)
+        {
+            return Counters.ContainsKey(item.ID) ? Counters[item.ID] : new TriggerCounter();
+        }
+        
+        public override string ToString()
+        {
+            return TriggerCount <= 0 ? "Never triggered" : $"Triggered {TriggerCount} times, last on {LastTriggerTime}";
+        }
+
+        public DateTime LastTriggerTime { get; set; }
+        public long TriggerCount { get; set; }
     }
 }

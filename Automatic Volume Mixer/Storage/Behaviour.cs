@@ -12,6 +12,7 @@ namespace Avm.Storage
     {
         public Behaviour()
         {
+            ID = Guid.NewGuid();
             Name = "New event";
             Enabled = true;
             TriggeringKind = TriggeringMode.RisingEdge;
@@ -25,6 +26,7 @@ namespace Avm.Storage
         public Behaviour(Behaviour other)
         {
             Name = other.Name;
+            ID = other.ID;
             Enabled = other.Enabled;
             TriggeringKind = other.TriggeringKind;
             Group = other.Group;
@@ -72,9 +74,10 @@ namespace Avm.Storage
             sb.Append(".");
             return sb.ToString();
         }
-
+        
         public string Name { get; set; }
         public bool Enabled { get; set; }
+        public Guid ID { get; set; }
 
         public object Clone()
         {
