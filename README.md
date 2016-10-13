@@ -1,4 +1,4 @@
-## Automatic-Volume-Mixer
+## Automatic Volume Mixer
 Automatic Volume Mixer is a tool that allows automatization of Windows Volume Mixer based on user's rules. You can open the Volume Mixer by right-clicking on the speaker icon in the system tray and selecting Open Volume Mixer. This application is an automatic version of that applet.
 
 ## Common usage examples
