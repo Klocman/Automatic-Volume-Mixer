@@ -114,12 +114,15 @@
     <Compile Include="Storage\Actions\ValueSelectionMethod.cs" />
     <Compile Include="Storage\Actions\VariableAssignConstantAction.cs" />
     <Compile Include="Storage\Actions\VariableAssignVolumeAction.cs" />
+    <Compile Include="Storage\Actions\VolumeChangeToConstantAction.cs" />
+    <Compile Include="Storage\Actions\VolumeChangeToVariableAction.cs" />
     <Compile Include="Storage\MuteStates.cs" />
+    <Compile Include="Storage\TriggerCounter.cs" />
     <Compile Include="Storage\Triggers\MuteTrigger.cs" />
     <Compile Include="Storage\Actions\StartProcessAction.cs" />
     <Compile Include="Storage\Actions\MuteAction.cs" />
     <Compile Include="Storage\Actions\MessageBoxAction.cs" />
-    <Compile Include="Storage\Actions\VolumeChangeAction.cs" />
+    <Compile Include="Storage\Actions\VolumeChangeActionBase.cs" />
     <Compile Include="Storage\BasicInfoBase.cs" />
     <Compile Include="Storage\Behaviour.cs" />
     <Compile Include="Storage\BehaviourManager.cs" />
