@@ -32,9 +32,10 @@
             this.toolStripButtonImport = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonExp = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButtonView = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonViewSessions = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSett = new System.Windows.Forms.ToolStripButton();
             this.elementList1 = new Avm.Controls.ElementList();
+            this.toolStripButtonViewVariables = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,7 +46,8 @@
             this.toolStripButtonImport,
             this.toolStripButtonExp,
             this.toolStripSeparator1,
-            this.toolStripButtonView,
+            this.toolStripButtonViewSessions,
+            this.toolStripButtonViewVariables,
             this.toolStripButtonSett});
             this.toolStrip1.Location = new System.Drawing.Point(8, 8);
             this.toolStrip1.Name = "toolStrip1";
@@ -71,13 +73,13 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButtonView
+            // toolStripButtonViewSessions
             // 
-            this.toolStripButtonView.Image = global::Avm.Properties.Resources.app;
-            this.toolStripButtonView.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonView.Name = "toolStripButtonView";
-            this.toolStripButtonView.Size = new System.Drawing.Size(131, 22);
-            this.toolStripButtonView.Text = "View audio sessions";
+            this.toolStripButtonViewSessions.Image = global::Avm.Properties.Resources.app;
+            this.toolStripButtonViewSessions.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonViewSessions.Name = "toolStripButtonViewSessions";
+            this.toolStripButtonViewSessions.Size = new System.Drawing.Size(131, 22);
+            this.toolStripButtonViewSessions.Text = "View audio sessions";
             // 
             // toolStripButtonSett
             // 
@@ -97,6 +99,14 @@
             this.elementList1.TabIndex = 1;
             this.elementList1.Text = "This list contains events that will be tested and executed depending on the state" +
     " of the audio sessions.";
+            // 
+            // toolStripButtonViewVariables
+            // 
+            this.toolStripButtonViewVariables.Image = global::Avm.Properties.Resources.app;
+            this.toolStripButtonViewVariables.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonViewVariables.Name = "toolStripButtonViewVariables";
+            this.toolStripButtonViewVariables.Size = new System.Drawing.Size(101, 22);
+            this.toolStripButtonViewVariables.Text = "View variables";
             // 
             // ConfigurationManager
             // 
@@ -123,7 +133,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonImport;
         private System.Windows.Forms.ToolStripButton toolStripButtonExp;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton toolStripButtonView;
+        private System.Windows.Forms.ToolStripButton toolStripButtonViewSessions;
         private System.Windows.Forms.ToolStripButton toolStripButtonSett;
+        private System.Windows.Forms.ToolStripButton toolStripButtonViewVariables;
     }
 }

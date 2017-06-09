@@ -47,13 +47,13 @@ namespace Avm.Daemon
             _mixerUpdateSubject.OnCompleted();
             _mixerWatcher.Dispose();
         }
-
+        public IDictionary<string,float> VariableStore { get; } = new Dictionary<string, float>(); 
         private void SendAudioSessionUpdate(DateTime triggerTime)
         {
             try
             {
-                _mixerUpdateSubject.OnNext(
-                    new StateUpdateEventArgs(_mixerWatcher.GetAudioSessions().ToList().AsReadOnly(), triggerTime));
+                _mixerUpdateSubject.OnNext(new StateUpdateEventArgs(
+                    _mixerWatcher.GetAudioSessions().ToList().AsReadOnly(), triggerTime, VariableStore));
             }
             catch (Exception ex)
             {

@@ -33,6 +33,7 @@ namespace Avm
             private SettingsWindow _settingsWindow;
             private NotifyIcon _trayIcon;
             private ContextMenu _trayMenuStrip;
+            private VariableViewWindow _variableViewWindow;
 
             public MainApplication()
             {
@@ -99,6 +100,7 @@ namespace Avm
                 _trayMenuStrip.MenuItems.Add(openMain);
                 //_trayMenuStrip.MenuItems.Add(new MenuItem("Open normalization manager", OpenConfigManager));
                 _trayMenuStrip.MenuItems.Add("View audio sessions", OpenSessionPreview);
+                _trayMenuStrip.MenuItems.Add("View variables", OpenVariablePreview);
                 _trayMenuStrip.MenuItems.Add("-");
                 //TODO _trayMenuStrip.MenuItems.Add(disableBehaviours);
 
@@ -117,6 +119,7 @@ namespace Avm
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add("Shut down Automatic Volume Mixer", (sender, args) => Application.Exit());
             }
+
             private void OpenSessionPreview(object sender, EventArgs e)
             {
                 if (_audioSessionWindow == null || _audioSessionWindow.IsDisposed)
@@ -125,12 +128,21 @@ namespace Avm
                 _audioSessionWindow.ShowAndMoveToTop();
             }
 
+            private void OpenVariablePreview(object sender, EventArgs e)
+            {
+                if (_variableViewWindow == null || _variableViewWindow.IsDisposed)
+                    _variableViewWindow = new VariableViewWindow(_automaticMixer);
+
+                _variableViewWindow.ShowAndMoveToTop();
+            }
+
             private void OpenConfigManager(object sender, EventArgs eventArgs)
             {
                 if (_configurationManager == null || _configurationManager.IsDisposed)
                 {
                     _configurationManager = new ConfigurationManager(_automaticMixer);
                     _configurationManager.ViewSessionsClick += OpenSessionPreview;
+                    _configurationManager.ViewVariablesClick += OpenVariablePreview;
                     _configurationManager.SettingsClick += OpenSettings;
                     _configurationManager.ExportClick += OpenExport;
                     _configurationManager.ImportClick += OpenImport;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using Avm.Properties;
 using Avm.Storage;
@@ -57,14 +56,20 @@ namespace Avm.Forms
 
         public event EventHandler ViewSessionsClick
         {
-            add { toolStripButtonView.Click += value; }
-            remove { toolStripButtonView.Click -= value; }
+            add { toolStripButtonViewSessions.Click += value; }
+            remove { toolStripButtonViewSessions.Click -= value; }
         }
 
         public event EventHandler SettingsClick
         {
             add { toolStripButtonSett.Click += value; }
             remove { toolStripButtonSett.Click -= value; }
+        }
+
+        public event EventHandler ViewVariablesClick
+        {
+            add { toolStripButtonViewVariables.Click += value; }
+            remove { toolStripButtonViewVariables.Click -= value; }
         }
 
         private void ConfigurationManager_FormClosed(object sender, FormClosedEventArgs e)

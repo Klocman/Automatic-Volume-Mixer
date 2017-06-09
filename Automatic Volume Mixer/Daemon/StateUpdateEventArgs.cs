@@ -5,10 +5,11 @@ namespace Avm.Daemon
 {
     public sealed class StateUpdateEventArgs : EventArgs
     {
-        public StateUpdateEventArgs(IEnumerable<AudioSession> sessions, DateTime snapshotTime)
+        public StateUpdateEventArgs(IEnumerable<AudioSession> sessions, DateTime snapshotTime, IDictionary<string, float> variableStore)
         {
             Sessions = sessions;
             SnapshotTime = snapshotTime;
+            VariableStore = variableStore;
         }
 
         /// <summary>
@@ -20,5 +21,7 @@ namespace Avm.Daemon
         ///     Read only list of sessions present at the time of snapshot creation.
         /// </summary>
         public IEnumerable<AudioSession> Sessions { get; }
+
+        public IDictionary<string, float> VariableStore { get; }
     }
 }
