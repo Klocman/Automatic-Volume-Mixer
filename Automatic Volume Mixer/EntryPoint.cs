@@ -108,14 +108,16 @@ namespace Avm
                     (sender, args) => _automaticMixer.ResetSessionVolumes());
                 _trayMenuStrip.MenuItems.Add("Settings", OpenSettings);
                 _trayMenuStrip.MenuItems.Add("-");
-                //var linkMenu = new MenuItem("Open website...") { Enabled = false };
-                //linkMenu.MenuItems.Add(new MenuItem("Homepage"));
-                //linkMenu.MenuItems.Add(new MenuItem("Rate this app"));
-                _trayMenuStrip.MenuItems.Add("Send feedback", (x, y) => PremadeDialogs.StartProcessSafely(@"http://klocmansoftware.weebly.com/feedback--contact.html"));
-                _trayMenuStrip.MenuItems.Add("Bug reports", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer/issues"));
+
+                var linkMenu = new MenuItem("Links");
+                _trayMenuStrip.MenuItems.Add(linkMenu);
+                linkMenu.MenuItems.Add("Homepage", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer"));
+                linkMenu.MenuItems.Add("Send feedback", (x, y) => PremadeDialogs.StartProcessSafely(@"http://klocmansoftware.weebly.com/feedback--contact.html"));
+                linkMenu.MenuItems.Add("Bug reports", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer/issues"));
+                linkMenu.MenuItems.Add("Help", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer"));
+
                 _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.StartProcessSafely(@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB9DA2P8KQX52"));
                 //_trayMenuStrip.MenuItems.Add(linkMenu);
-                _trayMenuStrip.MenuItems.Add("Help", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer"));
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add("Shut down Automatic Volume Mixer", (sender, args) => Application.Exit());
             }
