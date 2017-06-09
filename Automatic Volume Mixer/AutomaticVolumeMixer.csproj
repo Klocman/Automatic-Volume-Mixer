@@ -56,6 +56,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Reactive.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Core.3.0.0\lib\net46\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
@@ -102,8 +103,17 @@
     <Compile Include="Forms\SettingsWindow.Designer.cs">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\VariableViewWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\VariableViewWindow.Designer.cs">
+      <DependentUpon>VariableViewWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.cs" />
     <Compile Include="Storage\Actions\DelayAction.cs" />
+    <Compile Include="Storage\Actions\ValueSelectionMethod.cs" />
+    <Compile Include="Storage\Actions\VariableAssignConstantAction.cs" />
+    <Compile Include="Storage\Actions\VariableAssignVolumeAction.cs" />
     <Compile Include="Storage\MuteStates.cs" />
     <Compile Include="Storage\Triggers\MuteTrigger.cs" />
     <Compile Include="Storage\Actions\StartProcessAction.cs" />
@@ -146,9 +156,12 @@
     <Compile Include="Storage\NameFilterBase.cs" />
     <Compile Include="Storage\TriggeringMode.cs" />
     <Compile Include="Storage\Triggers\RunningProcessTrigger.cs" />
+    <Compile Include="Storage\Triggers\VariableComparisonType.cs" />
+    <Compile Include="Storage\Triggers\VariableTrigger.cs" />
     <Compile Include="Storage\Triggers\VolumeTrigger.cs" />
     <Compile Include="Storage\Triggers\AlwaysActiveTrigger.cs" />
     <Compile Include="Storage\Triggers\RunningSessionTrigger.cs" />
+    <Compile Include="Storage\Triggers\VolumeType.cs" />
     <Compile Include="Storage\VolumeComparisonType.cs" />
     <EmbeddedResource Include="Controls\AudioSessionViewer.resx">
       <DependentUpon>AudioSessionViewer.cs</DependentUpon>
@@ -170,6 +183,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SettingsWindow.resx">
       <DependentUpon>SettingsWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\VariableViewWindow.resx">
+      <DependentUpon>VariableViewWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
