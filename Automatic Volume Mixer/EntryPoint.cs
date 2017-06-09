@@ -49,7 +49,7 @@ namespace Avm
                     catch
                     {
                         // Settings were invalid, TODO info box
-                        MessageBox.Show("Failed to load events from the configuration file, they will be lost.",
+                        MessageBox.Show("Failed to load behaviours from the configuration file, they will be lost.",
                             "Automatic Volume Manager", MessageBoxButtons.OK);
                     }
                 }

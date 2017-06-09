@@ -99,7 +99,7 @@ namespace Avm.Storage
         {
             var xdoc = XDocument.Parse(serializedBehaviours);
             var root = xdoc.Root;
-            if (root == null || !root.HasElements)
+            if (root == null)
                 throw new ArgumentException("Invalid serialized data", nameof(serializedBehaviours));
 
             var results = new List<Behaviour>();
