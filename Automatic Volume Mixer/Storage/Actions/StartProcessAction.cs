@@ -38,7 +38,7 @@ namespace Avm.Storage.Actions
 
         public void ExecuteAction(object sender, StateUpdateEventArgs args)
         {
-            if (!Enabled) return;
+            Debug.Assert(Enabled, "Enabled");
 
             var p = Process.Start(new ProcessStartInfo(FileName, Arguments) {UseShellExecute = true});
 

@@ -1,16 +1,10 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using Avm.Daemon;
 
 namespace Avm.Storage.Triggers
 {
-    public enum VolumeType
-    {
-        Peak,
-        Master
-        //TODO Global
-    }
-
     [DefaultProperty(nameof(VolumeValue))]
     public class VolumeTrigger : RunningSessionTrigger
     {
@@ -36,13 +30,13 @@ namespace Avm.Storage.Triggers
 
         public override bool ProcessTrigger(object sender, StateUpdateEventArgs args)
         {
-            if (!Enabled) return false;
+            Debug.Assert(Enabled, "Enabled");
 
-            foreach (var compareSuccess in args.Sessions.Where(MatchSessionName)
-                .Select(x => ComparePeakValue(ComparisonTarget == VolumeType.Peak
-                    ? x.PeakValue
-                    : x.MasterVolume))
-                )
+            foreach (var compareSuccess in args.Sessions
+                .Where(MatchSessionName)
+                .Select(x => ComparePeakValue(ComparisonTarget == VolumeType.Peak 
+                    ? x.PeakValue 
+                    : x.MasterVolume)))
             {
                 switch (ComparisonType)
                 {

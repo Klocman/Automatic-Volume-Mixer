@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Avm.Daemon;
 
@@ -26,6 +27,8 @@ namespace Avm.Storage.Actions
 
         public void ExecuteAction(object sender, StateUpdateEventArgs args)
         {
+            Debug.Assert(Enabled, "Enabled");
+
             Task.Delay(TimeSpan.FromSeconds(SecondsToWait)).Wait();
         }
 

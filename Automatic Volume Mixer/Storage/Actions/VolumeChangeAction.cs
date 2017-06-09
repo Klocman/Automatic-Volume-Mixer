@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Avm.Daemon;
@@ -40,7 +41,7 @@ namespace Avm.Storage.Actions
 
         public void ExecuteAction(object sender, StateUpdateEventArgs args)
         {
-            if (!Enabled) return;
+            Debug.Assert(Enabled, "Enabled");
 
             var targets = args.Sessions.Where(MatchSessionName)
                 .Select(x => new KeyValuePair<AudioSession, float>(x, x.MasterVolume)).ToList();

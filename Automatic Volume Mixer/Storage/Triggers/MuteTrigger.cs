@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using Avm.Daemon;
 
@@ -31,7 +32,7 @@ namespace Avm.Storage.Triggers
 
         public void ExecuteAction(object sender, StateUpdateEventArgs args)
         {
-            if (!Enabled) return;
+            Debug.Assert(Enabled, "Enabled");
 
             foreach (var session in args.Sessions.Where(MatchSessionName))
             {

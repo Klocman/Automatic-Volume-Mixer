@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -155,7 +156,7 @@ namespace Avm.Storage
             {
                 list = _behaviours.ToList();
             }
-            foreach (var behaviourInfo in list)
+            foreach (var behaviourInfo in list.Where(x => x.Behaviour.Enabled))
             {
                 ProcessEvent(behaviourInfo, sender, args);
             }
@@ -163,7 +164,7 @@ namespace Avm.Storage
 
         private void ProcessEvent(BehaviourInfo behaviourInfo, object sender, StateUpdateEventArgs args)
         {
-            if (!Enabled) return;
+            Debug.Assert(Enabled, "Enabled");
 
             var targetBehaviour = behaviourInfo.Behaviour;
 
@@ -191,10 +192,10 @@ namespace Avm.Storage
                 return false;
             });
 
-            var triggerTriggered = targetBehaviour.Triggers.Any(triggerTester);
+            var triggerTriggered = targetBehaviour.Triggers.Where(x => x.Enabled).Any(triggerTester);
 
             if (triggerTriggered)
-                triggerTriggered = targetBehaviour.Conditions.All(triggerTester);
+                triggerTriggered = targetBehaviour.Conditions.Where(x => x.Enabled).All(triggerTester);
 
             var result = false;
             switch (targetBehaviour.TriggeringKind)
@@ -246,7 +247,7 @@ namespace Avm.Storage
 
             Action runActions = () =>
             {
-                foreach (var action in targetBehaviour.Actions)
+                foreach (var action in targetBehaviour.Actions.Where(x => x.Enabled))
                 {
                     try
                     {
