@@ -114,7 +114,7 @@
             this.Name = "SettingsWindow";
             this.Padding = new System.Windows.Forms.Padding(8);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Automatic Volume Mixer - Settings";
+            this.Text = "Settings - Automatic Volume Mixer";
             this.Shown += new System.EventHandler(this.SettingsWindow_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -34,6 +34,12 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -53,21 +59,18 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxGroup = new System.Windows.Forms.ComboBox();
             this.tabPageTriggers = new System.Windows.Forms.TabPage();
-            this.tabPageConditions = new System.Windows.Forms.TabPage();
-            this.tabPageActions = new System.Windows.Forms.TabPage();
-            this.label7 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
-            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.label9 = new System.Windows.Forms.Label();
             this.elementListTriggers = new Avm.Controls.ElementList();
+            this.tabPageConditions = new System.Windows.Forms.TabPage();
             this.elementListConditions = new Avm.Controls.ElementList();
+            this.tabPageActions = new System.Windows.Forms.TabPage();
             this.elementListActions = new Avm.Controls.ElementList();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
@@ -75,9 +78,6 @@
             this.tabPageTriggers.SuspendLayout();
             this.tabPageConditions.SuspendLayout();
             this.tabPageActions.SuspendLayout();
-            this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
-            this.flowLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -163,6 +163,82 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(504, 335);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.label9);
+            this.flowLayoutPanel3.Controls.Add(this.panel3);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(123, 270);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(378, 63);
+            this.flowLayoutPanel3.TabIndex = 15;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.label9.Name = "label9";
+            this.label9.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
+            this.label9.Size = new System.Drawing.Size(355, 32);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "The event will be disabled for this long after triggering. Use this to prevent ev" +
+    "ents from firing multiple times in short succession.";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label8);
+            this.panel3.Controls.Add(this.numericUpDown2);
+            this.panel3.Location = new System.Drawing.Point(3, 35);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(197, 22);
+            this.panel3.TabIndex = 14;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(64, 2);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(50, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "seconds.";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DecimalPlaces = 1;
+            this.numericUpDown2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.numericUpDown2.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            this.numericUpDown2.Location = new System.Drawing.Point(0, 0);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(58, 20);
+            this.numericUpDown2.TabIndex = 6;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label7.Location = new System.Drawing.Point(3, 267);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(114, 69);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "Time to wait after triggering";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -391,104 +467,6 @@
             this.tabPageTriggers.Text = "Triggers";
             this.tabPageTriggers.UseVisualStyleBackColor = true;
             // 
-            // tabPageConditions
-            // 
-            this.tabPageConditions.Controls.Add(this.elementListConditions);
-            this.tabPageConditions.Location = new System.Drawing.Point(4, 22);
-            this.tabPageConditions.Name = "tabPageConditions";
-            this.tabPageConditions.Padding = new System.Windows.Forms.Padding(8);
-            this.tabPageConditions.Size = new System.Drawing.Size(510, 342);
-            this.tabPageConditions.TabIndex = 3;
-            this.tabPageConditions.Text = "Conditions";
-            this.tabPageConditions.UseVisualStyleBackColor = true;
-            // 
-            // tabPageActions
-            // 
-            this.tabPageActions.Controls.Add(this.elementListActions);
-            this.tabPageActions.Location = new System.Drawing.Point(4, 22);
-            this.tabPageActions.Name = "tabPageActions";
-            this.tabPageActions.Padding = new System.Windows.Forms.Padding(8);
-            this.tabPageActions.Size = new System.Drawing.Size(510, 342);
-            this.tabPageActions.TabIndex = 2;
-            this.tabPageActions.Text = "Actions";
-            this.tabPageActions.UseVisualStyleBackColor = true;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(3, 267);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(114, 69);
-            this.label7.TabIndex = 11;
-            this.label7.Text = "Time to wait after triggering";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.label8);
-            this.panel3.Controls.Add(this.numericUpDown2);
-            this.panel3.Location = new System.Drawing.Point(3, 35);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(197, 22);
-            this.panel3.TabIndex = 14;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(64, 2);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(50, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "seconds.";
-            // 
-            // numericUpDown2
-            // 
-            this.numericUpDown2.DecimalPlaces = 1;
-            this.numericUpDown2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.numericUpDown2.Increment = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            this.numericUpDown2.Location = new System.Drawing.Point(0, 0);
-            this.numericUpDown2.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(58, 20);
-            this.numericUpDown2.TabIndex = 6;
-            this.numericUpDown2.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            65536});
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.Controls.Add(this.label9);
-            this.flowLayoutPanel3.Controls.Add(this.panel3);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(123, 270);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(378, 63);
-            this.flowLayoutPanel3.TabIndex = 15;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(0, 0);
-            this.label9.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.label9.Name = "label9";
-            this.label9.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
-            this.label9.Size = new System.Drawing.Size(355, 32);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "The event will be disabled for this long after triggering. Use this to prevent ev" +
-    "ents from firing multiple times in short succession.";
-            // 
             // elementListTriggers
             // 
             this.elementListTriggers.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -498,22 +476,44 @@
             this.elementListTriggers.TabIndex = 0;
             this.elementListTriggers.Text = "Conditions that will invoke this behaviour if any one of them is met.";
             // 
+            // tabPageConditions
+            // 
+            this.tabPageConditions.Controls.Add(this.elementListConditions);
+            this.tabPageConditions.Location = new System.Drawing.Point(4, 22);
+            this.tabPageConditions.Name = "tabPageConditions";
+            this.tabPageConditions.Padding = new System.Windows.Forms.Padding(8);
+            this.tabPageConditions.Size = new System.Drawing.Size(510, 341);
+            this.tabPageConditions.TabIndex = 3;
+            this.tabPageConditions.Text = "Conditions";
+            this.tabPageConditions.UseVisualStyleBackColor = true;
+            // 
             // elementListConditions
             // 
             this.elementListConditions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementListConditions.Location = new System.Drawing.Point(8, 8);
             this.elementListConditions.Name = "elementListConditions";
-            this.elementListConditions.Size = new System.Drawing.Size(494, 326);
+            this.elementListConditions.Size = new System.Drawing.Size(494, 325);
             this.elementListConditions.TabIndex = 1;
             this.elementListConditions.Text = "Conditions that all have to be met before executing actions. They are checked aft" +
     "er triggering.";
+            // 
+            // tabPageActions
+            // 
+            this.tabPageActions.Controls.Add(this.elementListActions);
+            this.tabPageActions.Location = new System.Drawing.Point(4, 22);
+            this.tabPageActions.Name = "tabPageActions";
+            this.tabPageActions.Padding = new System.Windows.Forms.Padding(8);
+            this.tabPageActions.Size = new System.Drawing.Size(510, 341);
+            this.tabPageActions.TabIndex = 2;
+            this.tabPageActions.Text = "Actions";
+            this.tabPageActions.UseVisualStyleBackColor = true;
             // 
             // elementListActions
             // 
             this.elementListActions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementListActions.Location = new System.Drawing.Point(8, 8);
             this.elementListActions.Name = "elementListActions";
-            this.elementListActions.Size = new System.Drawing.Size(494, 326);
+            this.elementListActions.Size = new System.Drawing.Size(494, 325);
             this.elementListActions.TabIndex = 1;
             this.elementListActions.Text = "Actions to execute after triggering and passing all conditions. They are executed" +
     " in order from top to bottom. Execution waits for current action to complete bef" +
@@ -538,6 +538,11 @@
             this.tabPageGeneral.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.flowLayoutPanel3.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -548,11 +553,6 @@
             this.tabPageTriggers.ResumeLayout(false);
             this.tabPageConditions.ResumeLayout(false);
             this.tabPageActions.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.flowLayoutPanel3.PerformLayout();
             this.ResumeLayout(false);
 
         }

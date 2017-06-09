@@ -68,7 +68,7 @@
             this.ClientSize = new System.Drawing.Size(306, 246);
             this.Controls.Add(this.listView1);
             this.Name = "VariableViewWindow";
-            this.Text = "VariableViewWindow";
+            this.Text = "Assigned variables - Automatic Volume Mixer";
             this.ResumeLayout(false);
 
         }

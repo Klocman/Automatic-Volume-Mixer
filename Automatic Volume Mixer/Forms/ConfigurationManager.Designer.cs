@@ -33,9 +33,9 @@
             this.toolStripButtonExp = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButtonViewSessions = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonViewVariables = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSett = new System.Windows.Forms.ToolStripButton();
             this.elementList1 = new Avm.Controls.ElementList();
-            this.toolStripButtonViewVariables = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -81,6 +81,14 @@
             this.toolStripButtonViewSessions.Size = new System.Drawing.Size(131, 22);
             this.toolStripButtonViewSessions.Text = "View audio sessions";
             // 
+            // toolStripButtonViewVariables
+            // 
+            this.toolStripButtonViewVariables.Image = global::Avm.Properties.Resources.app;
+            this.toolStripButtonViewVariables.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonViewVariables.Name = "toolStripButtonViewVariables";
+            this.toolStripButtonViewVariables.Size = new System.Drawing.Size(101, 22);
+            this.toolStripButtonViewVariables.Text = "View variables";
+            // 
             // toolStripButtonSett
             // 
             this.toolStripButtonSett.Image = global::Avm.Properties.Resources.settings;
@@ -100,14 +108,6 @@
             this.elementList1.Text = "This list contains events that will be tested and executed depending on the state" +
     " of the audio sessions.";
             // 
-            // toolStripButtonViewVariables
-            // 
-            this.toolStripButtonViewVariables.Image = global::Avm.Properties.Resources.app;
-            this.toolStripButtonViewVariables.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonViewVariables.Name = "toolStripButtonViewVariables";
-            this.toolStripButtonViewVariables.Size = new System.Drawing.Size(101, 22);
-            this.toolStripButtonViewVariables.Text = "View variables";
-            // 
             // ConfigurationManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -117,7 +117,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "ConfigurationManager";
             this.Padding = new System.Windows.Forms.Padding(8);
-            this.Text = "Automatic Volume Mixer - Event Manager";
+            this.Text = "Event Manager - Automatic Volume Mixer";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ConfigurationManager_FormClosed);
             this.Shown += new System.EventHandler(this.ConfigurationManager_Shown);
             this.toolStrip1.ResumeLayout(false);
