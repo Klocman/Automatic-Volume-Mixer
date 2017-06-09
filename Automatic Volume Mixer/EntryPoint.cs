@@ -117,6 +117,7 @@ namespace Avm
                 linkMenu.MenuItems.Add("Help", (x, y) => PremadeDialogs.StartProcessSafely(@"https://github.com/Klocman/Automatic-Volume-Mixer"));
 
                 _trayMenuStrip.MenuItems.Add("Donate", (x, y) => PremadeDialogs.StartProcessSafely(@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB9DA2P8KQX52"));
+                _trayMenuStrip.MenuItems.Add("About", (x, y) => new AboutBox().Show());
                 //_trayMenuStrip.MenuItems.Add(linkMenu);
                 _trayMenuStrip.MenuItems.Add("-");
                 _trayMenuStrip.MenuItems.Add("Shut down Automatic Volume Mixer", (sender, args) => Application.Exit());
