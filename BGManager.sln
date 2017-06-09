@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticVolumeMixer", "Automatic Volume Mixer\AutomaticVolumeMixer.csproj", "{D6EC13B0-407C-4F3F-9263-0C95A54BE322}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutomaticVolumeMixerTests", "Automatic Volume MixerTests\AutomaticVolumeMixerTests.csproj", "{DF8DD0A9-CB3F-4F5A-A6BD-A00548A8A692}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlocTools", "..\KlocTools\KlocTools\KlocTools.csproj", "{4F843421-01D4-48E8-B88B-CDF30DD671A4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KlocToolsTests", "..\KlocTools\KlocToolsTests\KlocToolsTests.csproj", "{E731137C-90C1-492B-B304-47FFA8950CE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,18 +55,6 @@ Global
 		{4F843421-01D4-48E8-B88B-CDF30DD671A4}.Release|x64.Build.0 = Release|x64
 		{4F843421-01D4-48E8-B88B-CDF30DD671A4}.Release|x86.ActiveCfg = Release|x86
 		{4F843421-01D4-48E8-B88B-CDF30DD671A4}.Release|x86.Build.0 = Release|x86
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Debug|x64.Build.0 = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Debug|x86.Build.0 = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Release|x64.ActiveCfg = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Release|x64.Build.0 = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Release|x86.ActiveCfg = Debug|Any CPU
-		{E731137C-90C1-492B-B304-47FFA8950CE7}.Release|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
