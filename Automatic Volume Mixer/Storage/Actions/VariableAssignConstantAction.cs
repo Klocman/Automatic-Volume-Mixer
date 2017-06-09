@@ -5,6 +5,7 @@ using Avm.Daemon;
 
 namespace Avm.Storage.Actions
 {
+    [DefaultProperty(nameof(VariableName))]
     public class VariableAssignConstantAction : BasicInfoBase, IAction
     {
         [Category("Variable")]

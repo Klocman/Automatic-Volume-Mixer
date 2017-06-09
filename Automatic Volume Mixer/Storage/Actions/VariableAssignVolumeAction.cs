@@ -8,6 +8,7 @@ using Avm.Storage.Triggers;
 
 namespace Avm.Storage.Actions
 {
+    [DefaultProperty(nameof(VariableName))]
     public class VariableAssignVolumeAction : NameFilterBase, IAction
     {
         [Category("Variable")]
@@ -88,7 +89,7 @@ namespace Avm.Storage.Actions
         {
             var size = sortedPNumbers.Count;
             var mid = size / 2;
-            var median = (size % 2 != 0) 
+            var median = size % 2 != 0
                 ? sortedPNumbers[mid] 
                 : (sortedPNumbers[mid] + sortedPNumbers[mid - 1]) / 2;
             return median;

@@ -5,6 +5,7 @@ using Avm.Daemon;
 
 namespace Avm.Storage.Triggers
 {
+    [DefaultProperty(nameof(VariableName))]
     public class VariableTrigger : BasicInfoBase, ITrigger
     {
         [Category("Variable")]

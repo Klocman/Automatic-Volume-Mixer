@@ -57,13 +57,13 @@ namespace Avm.Forms
         private void RefreshList(StateUpdateEventArgs stateUpdateEventArgs)
         {
             var query = stateUpdateEventArgs.VariableStore
-                            .OrderBy(x => x.Key)
-                            .Select(variable => new ListViewItem(new[]
-                                {
-                        variable.Key,
-                        variable.Value.ToString(CultureInfo.CurrentCulture),
-                                })
-                            { Tag = variable });
+                .OrderBy(x => x.Key)
+                .Select(variable => new ListViewItem(new[]
+                {
+                    variable.Key,
+                    variable.Value.ToString(CultureInfo.CurrentCulture)
+                })
+                { Tag = variable });
 
             SuspendLayout();
             listView1.BeginUpdate();

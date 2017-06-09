@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using CSCore.CoreAudioAPI;
-using Klocman.Extensions;
 
 namespace Avm.Daemon
 {
