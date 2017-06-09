@@ -1,0 +1,102 @@
+<BehaviourList>
+  <Behaviour>
+    <Properties>&lt;Behaviour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;TriggeringKind&gt;Timed&lt;/TriggeringKind&gt;
+  &lt;MinimalTimedTriggerDelay&gt;5&lt;/MinimalTimedTriggerDelay&gt;
+  &lt;CooldownPeriod&gt;0&lt;/CooldownPeriod&gt;
+  &lt;Group&gt;Foobar example&lt;/Group&gt;
+  &lt;Name&gt;Resume and fade in after 5s of silence&lt;/Name&gt;
+  &lt;Enabled&gt;true&lt;/Enabled&gt;
+  &lt;Id&gt;b5b632eb-a5d3-426e-8862-639cb9491b37&lt;/Id&gt;
+&lt;/Behaviour&gt;</Properties>
+    <Triggers>
+      <Entry type="Avm.Storage.Triggers.VolumeTrigger">&lt;VolumeTrigger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;All apps other than foobar and system sounds are silent&lt;/Name&gt;
+  &lt;Id&gt;ee8170bf-7949-435d-bd9a-3eed5ff887bd&lt;/Id&gt;
+  &lt;FilterText&gt;foobar2000&lt;/FilterText&gt;
+  &lt;FilteringType&gt;NotContaining&lt;/FilteringType&gt;
+  &lt;ComparisonType&gt;AllBelow&lt;/ComparisonType&gt;
+&lt;/VolumeTrigger&gt;</Entry>
+    </Triggers>
+    <Conditions>
+      <Entry type="Avm.Storage.Triggers.VolumeTrigger">&lt;VolumeTrigger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Foobar is running and is muted&lt;/Name&gt;
+  &lt;Id&gt;7866254e-ff75-4a63-a884-bae7f28ea081&lt;/Id&gt;
+  &lt;FilterText&gt;foobar2000&lt;/FilterText&gt;
+  &lt;FilteringType&gt;Containing&lt;/FilteringType&gt;
+  &lt;VolumeValue&gt;0.1&lt;/VolumeValue&gt;
+  &lt;ComparisonType&gt;AnyBelow&lt;/ComparisonType&gt;
+  &lt;ComparisonTarget&gt;Master&lt;/ComparisonTarget&gt;
+&lt;/VolumeTrigger&gt;</Entry>
+    </Conditions>
+    <Actions>
+      <Entry type="Avm.Storage.Actions.StartProcessAction">&lt;StartProcessAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Resume playing&lt;/Name&gt;
+  &lt;Id&gt;da70d72f-73ac-4122-a2b1-557e9ff9459b&lt;/Id&gt;
+  &lt;Arguments&gt;/play&lt;/Arguments&gt;
+  &lt;FileName&gt;C:\Program Files (x86)\foobar2000\foobar2000.exe&lt;/FileName&gt;
+&lt;/StartProcessAction&gt;</Entry>
+      <Entry type="Avm.Storage.Actions.VolumeChangeToVariableAction">&lt;VolumeChangeToVariableAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Volume Change To Variable&lt;/Name&gt;
+  &lt;Id&gt;86de3be4-6077-4aa2-9464-28a9a7f918a6&lt;/Id&gt;
+  &lt;FilterText&gt;foobar2000&lt;/FilterText&gt;
+  &lt;FilteringType&gt;Containing&lt;/FilteringType&gt;
+  &lt;SecondsToChange&gt;0.8&lt;/SecondsToChange&gt;
+  &lt;VariableName&gt;Foobar saved volume&lt;/VariableName&gt;
+&lt;/VolumeChangeToVariableAction&gt;</Entry>
+    </Actions>
+  </Behaviour>
+  <Behaviour>
+    <Properties>&lt;Behaviour xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;TriggeringKind&gt;Timed&lt;/TriggeringKind&gt;
+  &lt;MinimalTimedTriggerDelay&gt;0.5&lt;/MinimalTimedTriggerDelay&gt;
+  &lt;CooldownPeriod&gt;0&lt;/CooldownPeriod&gt;
+  &lt;Group&gt;Foobar example&lt;/Group&gt;
+  &lt;Name&gt;Fade out and pause on other audio playing for half a second&lt;/Name&gt;
+  &lt;Enabled&gt;true&lt;/Enabled&gt;
+  &lt;Id&gt;4551d1fe-3e06-4166-a604-19ee7d1367c2&lt;/Id&gt;
+&lt;/Behaviour&gt;</Properties>
+    <Triggers>
+      <Entry type="Avm.Storage.Triggers.VolumeTrigger">&lt;VolumeTrigger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Any app other than foobar and system sounds is playing&lt;/Name&gt;
+  &lt;Id&gt;4f0e2b0a-24b9-48a8-aed0-a17da6915be0&lt;/Id&gt;
+  &lt;FilterText&gt;foobar2000&lt;/FilterText&gt;
+  &lt;FilteringType&gt;NotContaining&lt;/FilteringType&gt;
+&lt;/VolumeTrigger&gt;</Entry>
+    </Triggers>
+    <Conditions>
+      <Entry type="Avm.Storage.Triggers.VolumeTrigger">&lt;VolumeTrigger xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Foobar is running and not muted&lt;/Name&gt;
+  &lt;Id&gt;d5102412-de42-48d1-8b01-235ca7579a43&lt;/Id&gt;
+  &lt;FilterText&gt;foobar2000&lt;/FilterText&gt;
+  &lt;FilteringType&gt;Containing&lt;/FilteringType&gt;
+  &lt;VolumeValue&gt;0&lt;/VolumeValue&gt;
+  &lt;ComparisonTarget&gt;Master&lt;/ComparisonTarget&gt;
+&lt;/VolumeTrigger&gt;</Entry>
+    </Conditions>
+    <Actions>
+      <Entry type="Avm.Storage.Actions.VariableAssignVolumeAction">&lt;VariableAssignVolumeAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Save foobar's volume&lt;/Name&gt;
+  &lt;Id&gt;b8a577e6-cea3-4698-8149-29f66f333274&lt;/Id&gt;
+  &lt;FilterText&gt;foobar2000&lt;/FilterText&gt;
+  &lt;FilteringType&gt;Containing&lt;/FilteringType&gt;
+  &lt;VariableName&gt;Foobar saved volume&lt;/VariableName&gt;
+  &lt;TargetValue&gt;Master&lt;/TargetValue&gt;
+&lt;/VariableAssignVolumeAction&gt;</Entry>
+      <Entry type="Avm.Storage.Actions.VolumeChangeToConstantAction">&lt;VolumeChangeToConstantAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Fade foobar out&lt;/Name&gt;
+  &lt;Id&gt;664bc1a2-3ea0-40be-938d-cf345b18b307&lt;/Id&gt;
+  &lt;FilterText&gt;foobar2000&lt;/FilterText&gt;
+  &lt;FilteringType&gt;Containing&lt;/FilteringType&gt;
+  &lt;SecondsToChange&gt;0.8&lt;/SecondsToChange&gt;
+  &lt;NewVolume&gt;0&lt;/NewVolume&gt;
+&lt;/VolumeChangeToConstantAction&gt;</Entry>
+      <Entry type="Avm.Storage.Actions.StartProcessAction">&lt;StartProcessAction xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;Name&gt;Pause foobar&lt;/Name&gt;
+  &lt;Id&gt;d011ef9b-0e3f-4f56-8812-ed102c401dd3&lt;/Id&gt;
+  &lt;Arguments&gt;/pause&lt;/Arguments&gt;
+  &lt;FileName&gt;C:\Program Files (x86)\foobar2000\foobar2000.exe&lt;/FileName&gt;
+&lt;/StartProcessAction&gt;</Entry>
+    </Actions>
+  </Behaviour>
+</BehaviourList>

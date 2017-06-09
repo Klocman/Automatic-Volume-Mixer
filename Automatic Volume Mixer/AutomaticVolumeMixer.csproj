@@ -221,6 +221,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Foobar Example.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Licence.txt" />
     <None Include="Resources\sound.stereo.stack.ico" />
     <None Include="Resources\sound.stereo.stack1.ico" />
