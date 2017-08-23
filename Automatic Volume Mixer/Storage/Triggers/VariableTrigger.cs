@@ -6,7 +6,7 @@ using Avm.Daemon;
 namespace Avm.Storage.Triggers
 {
     [DefaultProperty(nameof(VariableName))]
-    public class VariableTrigger : BasicInfoBase, ITrigger
+    public class VariableTrigger : BasicInfoBaseTriggerBase, ITrigger
     {
         [Category("Variable")]
         [Description("Name of the checked variable.")]

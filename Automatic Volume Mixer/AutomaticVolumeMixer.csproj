@@ -123,6 +123,7 @@
     <Compile Include="Storage\Actions\VolumeChangeToConstantAction.cs" />
     <Compile Include="Storage\Actions\VolumeChangeToVariableAction.cs" />
     <Compile Include="Storage\MuteStates.cs" />
+    <Compile Include="Storage\Triggers\NameFilterTriggerBase.cs" />
     <Compile Include="Storage\TriggerCounter.cs" />
     <Compile Include="Storage\Triggers\MuteTrigger.cs" />
     <Compile Include="Storage\Actions\StartProcessAction.cs" />

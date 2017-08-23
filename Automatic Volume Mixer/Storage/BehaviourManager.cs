@@ -179,7 +179,8 @@ namespace Avm.Storage
             {
                 try
                 {
-                    if (tr.ProcessTrigger(sender, args))
+                    var triggerResult = tr.ProcessTrigger(sender, args);
+                    if ((triggerResult && !tr.InvertResult) || (!triggerResult && tr.InvertResult))
                     {
                         TriggerCounter.BumpCounter(tr, args.SnapshotTime);
                         return true;

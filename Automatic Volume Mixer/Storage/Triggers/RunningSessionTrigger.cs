@@ -2,7 +2,7 @@ using Avm.Daemon;
 
 namespace Avm.Storage.Triggers
 {
-    public class RunningSessionTrigger : NameFilterBase, ITrigger
+    public class RunningSessionTrigger : NameFilterTriggerBase, ITrigger
     {
         public virtual bool ProcessTrigger(object sender, StateUpdateEventArgs args)
         {

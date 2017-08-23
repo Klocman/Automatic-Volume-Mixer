@@ -3,7 +3,7 @@ using Avm.Daemon;
 
 namespace Avm.Storage.Triggers
 {
-    public class RunningProcessTrigger : NameFilterBase, ITrigger
+    public class RunningProcessTrigger : NameFilterTriggerBase, ITrigger
     {
         public override object Clone()
         {

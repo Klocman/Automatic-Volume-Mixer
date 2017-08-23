@@ -5,7 +5,7 @@ using Avm.Daemon;
 
 namespace Avm.Storage.Triggers
 {
-    public class MuteTrigger : NameFilterBase, ITrigger
+    public class MuteTrigger : NameFilterTriggerBase, ITrigger
     {
         [Category("Mute")]
         [Description("State of the session.")]
