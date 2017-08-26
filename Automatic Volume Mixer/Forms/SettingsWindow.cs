@@ -61,8 +61,8 @@ namespace Avm.Forms
 
         private static void ShowBootException(Exception ex)
         {
-            PremadeDialogs.GenericError("Failed to access the start on boot registry setting",
-                "You might need to run AVM as an administrator. Error message: " + ex.Message);
+            MessageBox.Show("You need to run AVM as an administrator.\n\nError message: " + ex.Message, 
+                "Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void SettingsWindow_Shown(object sender, EventArgs e)
