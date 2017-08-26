@@ -18,6 +18,8 @@ namespace Avm
             Application.ThreadException += NBug.Handler.ThreadException;
             TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException;
 
+            //NBug.Settings.
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainApplication());
