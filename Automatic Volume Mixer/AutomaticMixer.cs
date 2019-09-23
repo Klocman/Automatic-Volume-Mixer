@@ -73,6 +73,11 @@ namespace Avm
             _behaviourManager.RemoveBehaviour(item);
         }
 
+        public void ClearBehaviours()
+        {
+            _behaviourManager.ClearBehaviours();
+        }
+
         private void OnMixerStateUpdate(object sender, StateUpdateEventArgs e)
         {
             MixerStateUpdate?.Invoke(sender, e);

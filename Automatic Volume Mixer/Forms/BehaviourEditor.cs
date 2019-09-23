@@ -40,19 +40,22 @@ namespace Avm.Forms
             elementListTriggers.SetupList(triggers,
                 (window, info) => ElementEditor.ShowDialog(window, (ITrigger) info),
                 info => triggers.Add((ITrigger) info),
-                info => triggers.Remove((ITrigger) info));
+                info => triggers.Remove((ITrigger) info),
+                () => triggers.Clear());
 
             var conditions = newBehaviour.Conditions;
             elementListConditions.SetupList(conditions,
                 (window, info) => ElementEditor.ShowDialog(window, (ITrigger) info),
                 info => conditions.Add((ITrigger) info),
-                info => conditions.Remove((ITrigger) info));
+                info => conditions.Remove((ITrigger) info),
+                () => conditions.Clear());
 
             var actions = newBehaviour.Actions;
             elementListActions.SetupList(actions,
                 (window, info) => ElementEditor.ShowDialog(window, (IAction) info),
                 info => actions.Add((IAction) info),
                 info => actions.Remove((IAction) info),
+                () => actions.Clear(),
                 info => actions.MoveUp(actions.IndexOf((IAction) info)),
                 info => actions.MoveDown(actions.IndexOf((IAction) info)));
 
