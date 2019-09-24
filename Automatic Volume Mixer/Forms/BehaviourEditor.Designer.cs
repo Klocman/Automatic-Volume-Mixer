@@ -87,13 +87,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(8, 375);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 28);
+            this.panel1.Size = new System.Drawing.Size(553, 28);
             this.panel1.TabIndex = 0;
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Location = new System.Drawing.Point(362, 5);
+            this.buttonOk.Location = new System.Drawing.Point(397, 5);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 0;
@@ -105,7 +105,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(443, 5);
+            this.buttonCancel.Location = new System.Drawing.Point(478, 5);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 0;
@@ -122,7 +122,7 @@
             this.tabControl1.Location = new System.Drawing.Point(8, 8);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(518, 367);
+            this.tabControl1.Size = new System.Drawing.Size(553, 367);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPageGeneral
@@ -131,7 +131,7 @@
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(510, 341);
+            this.tabPageGeneral.Size = new System.Drawing.Size(545, 341);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -161,7 +161,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(504, 335);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(539, 335);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel3
@@ -172,7 +172,7 @@
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(123, 270);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(378, 63);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(413, 63);
             this.flowLayoutPanel3.TabIndex = 15;
             // 
             // label9
@@ -182,7 +182,7 @@
             this.label9.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.label9.Name = "label9";
             this.label9.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
-            this.label9.Size = new System.Drawing.Size(355, 32);
+            this.label9.Size = new System.Drawing.Size(410, 32);
             this.label9.TabIndex = 0;
             this.label9.Text = "The event will be disabled for this long after triggering. Use this to prevent ev" +
     "ents from firing multiple times in short succession.";
@@ -290,7 +290,7 @@
             this.textBoxName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBoxName.Location = new System.Drawing.Point(123, 3);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(378, 20);
+            this.textBoxName.Size = new System.Drawing.Size(413, 20);
             this.textBoxName.TabIndex = 1;
             // 
             // checkBoxEnabled
@@ -299,7 +299,7 @@
             this.checkBoxEnabled.Dock = System.Windows.Forms.DockStyle.Fill;
             this.checkBoxEnabled.Location = new System.Drawing.Point(123, 28);
             this.checkBoxEnabled.Name = "checkBoxEnabled";
-            this.checkBoxEnabled.Size = new System.Drawing.Size(378, 19);
+            this.checkBoxEnabled.Size = new System.Drawing.Size(413, 19);
             this.checkBoxEnabled.TabIndex = 3;
             this.checkBoxEnabled.UseVisualStyleBackColor = true;
             // 
@@ -316,7 +316,7 @@
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(123, 121);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(378, 143);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(413, 143);
             this.flowLayoutPanel1.TabIndex = 4;
             // 
             // radioButton1
@@ -430,7 +430,7 @@
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(123, 53);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(378, 62);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(413, 62);
             this.flowLayoutPanel2.TabIndex = 10;
             // 
             // label5
@@ -440,7 +440,7 @@
             this.label5.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.label5.Name = "label5";
             this.label5.Padding = new System.Windows.Forms.Padding(0, 0, 0, 6);
-            this.label5.Size = new System.Drawing.Size(374, 32);
+            this.label5.Size = new System.Drawing.Size(409, 32);
             this.label5.TabIndex = 0;
             this.label5.Text = "Grouped events will wait to run actions if any event from the group is currently " +
     "running them. If left empty the event gets an individual group.";
@@ -453,7 +453,7 @@
             this.comboBoxGroup.FormattingEnabled = true;
             this.comboBoxGroup.Location = new System.Drawing.Point(3, 35);
             this.comboBoxGroup.Name = "comboBoxGroup";
-            this.comboBoxGroup.Size = new System.Drawing.Size(371, 21);
+            this.comboBoxGroup.Size = new System.Drawing.Size(406, 21);
             this.comboBoxGroup.TabIndex = 1;
             // 
             // tabPageTriggers
@@ -462,7 +462,7 @@
             this.tabPageTriggers.Location = new System.Drawing.Point(4, 22);
             this.tabPageTriggers.Name = "tabPageTriggers";
             this.tabPageTriggers.Padding = new System.Windows.Forms.Padding(8);
-            this.tabPageTriggers.Size = new System.Drawing.Size(510, 341);
+            this.tabPageTriggers.Size = new System.Drawing.Size(545, 341);
             this.tabPageTriggers.TabIndex = 1;
             this.tabPageTriggers.Text = "Triggers";
             this.tabPageTriggers.UseVisualStyleBackColor = true;
@@ -472,7 +472,7 @@
             this.elementListTriggers.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementListTriggers.Location = new System.Drawing.Point(8, 8);
             this.elementListTriggers.Name = "elementListTriggers";
-            this.elementListTriggers.Size = new System.Drawing.Size(494, 325);
+            this.elementListTriggers.Size = new System.Drawing.Size(529, 325);
             this.elementListTriggers.TabIndex = 0;
             this.elementListTriggers.Text = "Conditions that will invoke this behaviour if any one of them is met.";
             // 
@@ -482,7 +482,7 @@
             this.tabPageConditions.Location = new System.Drawing.Point(4, 22);
             this.tabPageConditions.Name = "tabPageConditions";
             this.tabPageConditions.Padding = new System.Windows.Forms.Padding(8);
-            this.tabPageConditions.Size = new System.Drawing.Size(510, 341);
+            this.tabPageConditions.Size = new System.Drawing.Size(545, 341);
             this.tabPageConditions.TabIndex = 3;
             this.tabPageConditions.Text = "Conditions";
             this.tabPageConditions.UseVisualStyleBackColor = true;
@@ -492,7 +492,7 @@
             this.elementListConditions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementListConditions.Location = new System.Drawing.Point(8, 8);
             this.elementListConditions.Name = "elementListConditions";
-            this.elementListConditions.Size = new System.Drawing.Size(494, 325);
+            this.elementListConditions.Size = new System.Drawing.Size(529, 325);
             this.elementListConditions.TabIndex = 1;
             this.elementListConditions.Text = "Conditions that all have to be met before executing actions. They are checked aft" +
     "er triggering.";
@@ -503,7 +503,7 @@
             this.tabPageActions.Location = new System.Drawing.Point(4, 22);
             this.tabPageActions.Name = "tabPageActions";
             this.tabPageActions.Padding = new System.Windows.Forms.Padding(8);
-            this.tabPageActions.Size = new System.Drawing.Size(510, 341);
+            this.tabPageActions.Size = new System.Drawing.Size(545, 341);
             this.tabPageActions.TabIndex = 2;
             this.tabPageActions.Text = "Actions";
             this.tabPageActions.UseVisualStyleBackColor = true;
@@ -513,7 +513,7 @@
             this.elementListActions.Dock = System.Windows.Forms.DockStyle.Fill;
             this.elementListActions.Location = new System.Drawing.Point(8, 8);
             this.elementListActions.Name = "elementListActions";
-            this.elementListActions.Size = new System.Drawing.Size(494, 325);
+            this.elementListActions.Size = new System.Drawing.Size(529, 325);
             this.elementListActions.TabIndex = 1;
             this.elementListActions.Text = "Actions to execute after triggering and passing all conditions. They are executed" +
     " in order from top to bottom. Execution waits for current action to complete bef" +
@@ -525,7 +525,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(534, 411);
+            this.ClientSize = new System.Drawing.Size(569, 411);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.MinimumSize = new System.Drawing.Size(550, 450);

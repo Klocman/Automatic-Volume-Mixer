@@ -149,6 +149,13 @@ namespace Avm.Storage
             BehavioursChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        public void ClearBehaviours()
+        {
+            lock (_behaviours)
+                _behaviours.Clear();
+            BehavioursChanged?.Invoke(this, EventArgs.Empty);
+        }
+
         public void ProcessEvents(object sender, StateUpdateEventArgs args)
         {
             List<BehaviourInfo> list;

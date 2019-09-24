@@ -51,7 +51,7 @@
             this.toolStripButtonSett});
             this.toolStrip1.Location = new System.Drawing.Point(8, 8);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(499, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(529, 25);
             this.toolStrip1.TabIndex = 0;
             // 
             // toolStripButtonImport
@@ -65,7 +65,7 @@
             // 
             this.toolStripButtonExp.Image = global::Avm.Properties.Resources.export;
             this.toolStripButtonExp.Name = "toolStripButtonExp";
-            this.toolStripButtonExp.Size = new System.Drawing.Size(69, 22);
+            this.toolStripButtonExp.Size = new System.Drawing.Size(70, 22);
             this.toolStripButtonExp.Text = "Export...";
             // 
             // toolStripSeparator1
@@ -103,7 +103,7 @@
             this.elementList1.Location = new System.Drawing.Point(8, 33);
             this.elementList1.Name = "elementList1";
             this.elementList1.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.elementList1.Size = new System.Drawing.Size(499, 269);
+            this.elementList1.Size = new System.Drawing.Size(529, 269);
             this.elementList1.TabIndex = 1;
             this.elementList1.Text = "This list contains events that will be tested and executed depending on the state" +
     " of the audio sessions.";
@@ -112,7 +112,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 310);
+            this.ClientSize = new System.Drawing.Size(545, 310);
             this.Controls.Add(this.elementList1);
             this.Controls.Add(this.toolStrip1);
             this.Name = "ConfigurationManager";

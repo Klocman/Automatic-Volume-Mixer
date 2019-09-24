@@ -16,6 +16,7 @@ namespace Avm.Controls
         private Func<IWin32Window, IBasicInfo, IBasicInfo> _launchEditor;
         private Action<IBasicInfo> _removeItem;
         private Action<IBasicInfo> _upItem;
+        private Action _clearItems;
 
         public ElementList()
         {
@@ -46,6 +47,7 @@ namespace Avm.Controls
             Func<IWin32Window, IBasicInfo, IBasicInfo> launchEditor,
             Action<IBasicInfo> addToList,
             Action<IBasicInfo> removeFromList,
+            Action clearItems = null,
             Action<IBasicInfo> upItem = null,
             Action<IBasicInfo> downItem = null,
             Func<IBasicInfo, string> groupKeyGetter = null)
@@ -60,6 +62,7 @@ namespace Avm.Controls
             _itemListEnumerator = itemListEnumerator;
             _addItem = addToList;
             _removeItem = removeFromList;
+            _clearItems = clearItems;
             _upItem = upItem;
             _downItem = downItem;
             _launchEditor = launchEditor;
@@ -193,6 +196,12 @@ namespace Avm.Controls
         {
             if(e.KeyCode == Keys.Enter)
                 buttonTriggerEdit_Click(sender, e);
+        }
+
+        private void buttonDeleteAll_Click(object sender, EventArgs e)
+        {
+            _clearItems();
+            ReloadList();
         }
     }
 }

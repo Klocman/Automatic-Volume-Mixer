@@ -34,6 +34,7 @@
             this.columnHeaderActionDetails = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderStats = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.buttonDeleteAll = new System.Windows.Forms.Button();
             this.buttonActionUp = new System.Windows.Forms.Button();
             this.buttonActionDown = new System.Windows.Forms.Button();
             this.buttonActionNew = new System.Windows.Forms.Button();
@@ -90,6 +91,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.buttonDeleteAll);
             this.panel2.Controls.Add(this.buttonActionUp);
             this.panel2.Controls.Add(this.buttonActionDown);
             this.panel2.Controls.Add(this.buttonActionNew);
@@ -102,12 +104,22 @@
             this.panel2.Size = new System.Drawing.Size(852, 28);
             this.panel2.TabIndex = 1;
             // 
+            // buttonDeleteAll
+            // 
+            this.buttonDeleteAll.Location = new System.Drawing.Point(264, 5);
+            this.buttonDeleteAll.Name = "buttonDeleteAll";
+            this.buttonDeleteAll.Size = new System.Drawing.Size(60, 23);
+            this.buttonDeleteAll.TabIndex = 6;
+            this.buttonDeleteAll.Text = "Delete all";
+            this.buttonDeleteAll.UseVisualStyleBackColor = true;
+            this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
+            // 
             // buttonActionUp
             // 
             this.buttonActionUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonActionUp.Location = new System.Drawing.Point(726, 5);
+            this.buttonActionUp.Location = new System.Drawing.Point(736, 5);
             this.buttonActionUp.Name = "buttonActionUp";
-            this.buttonActionUp.Size = new System.Drawing.Size(60, 23);
+            this.buttonActionUp.Size = new System.Drawing.Size(55, 23);
             this.buttonActionUp.TabIndex = 4;
             this.buttonActionUp.Text = "Up";
             this.buttonActionUp.UseVisualStyleBackColor = true;
@@ -116,9 +128,9 @@
             // buttonActionDown
             // 
             this.buttonActionDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonActionDown.Location = new System.Drawing.Point(792, 5);
+            this.buttonActionDown.Location = new System.Drawing.Point(797, 5);
             this.buttonActionDown.Name = "buttonActionDown";
-            this.buttonActionDown.Size = new System.Drawing.Size(60, 23);
+            this.buttonActionDown.Size = new System.Drawing.Size(55, 23);
             this.buttonActionDown.TabIndex = 5;
             this.buttonActionDown.Text = "Down";
             this.buttonActionDown.UseVisualStyleBackColor = true;
@@ -129,7 +141,7 @@
             this.buttonActionNew.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonActionNew.Location = new System.Drawing.Point(0, 5);
             this.buttonActionNew.Name = "buttonActionNew";
-            this.buttonActionNew.Size = new System.Drawing.Size(75, 23);
+            this.buttonActionNew.Size = new System.Drawing.Size(60, 23);
             this.buttonActionNew.TabIndex = 0;
             this.buttonActionNew.Text = "New...";
             this.buttonActionNew.UseVisualStyleBackColor = true;
@@ -138,9 +150,9 @@
             // buttonDuplicate
             // 
             this.buttonDuplicate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDuplicate.Location = new System.Drawing.Point(162, 5);
+            this.buttonDuplicate.Location = new System.Drawing.Point(132, 5);
             this.buttonDuplicate.Name = "buttonDuplicate";
-            this.buttonDuplicate.Size = new System.Drawing.Size(75, 23);
+            this.buttonDuplicate.Size = new System.Drawing.Size(60, 23);
             this.buttonDuplicate.TabIndex = 2;
             this.buttonDuplicate.Text = "Copy";
             this.buttonDuplicate.UseVisualStyleBackColor = true;
@@ -149,9 +161,9 @@
             // buttonActionDelete
             // 
             this.buttonActionDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonActionDelete.Location = new System.Drawing.Point(243, 5);
+            this.buttonActionDelete.Location = new System.Drawing.Point(198, 5);
             this.buttonActionDelete.Name = "buttonActionDelete";
-            this.buttonActionDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonActionDelete.Size = new System.Drawing.Size(60, 23);
             this.buttonActionDelete.TabIndex = 3;
             this.buttonActionDelete.Text = "Delete";
             this.buttonActionDelete.UseVisualStyleBackColor = true;
@@ -160,9 +172,9 @@
             // buttonActionEdit
             // 
             this.buttonActionEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonActionEdit.Location = new System.Drawing.Point(81, 5);
+            this.buttonActionEdit.Location = new System.Drawing.Point(66, 5);
             this.buttonActionEdit.Name = "buttonActionEdit";
-            this.buttonActionEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonActionEdit.Size = new System.Drawing.Size(60, 23);
             this.buttonActionEdit.TabIndex = 1;
             this.buttonActionEdit.Text = "Edit...";
             this.buttonActionEdit.UseVisualStyleBackColor = true;
@@ -222,5 +234,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonDuplicate;
         private System.Windows.Forms.ColumnHeader columnHeaderStats;
+        private System.Windows.Forms.Button buttonDeleteAll;
     }
 }
