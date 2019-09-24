@@ -167,8 +167,12 @@ namespace Avm.Controls
             var selected = GetSelectedElement();
             if (selected != null)
             {
+                int index = listView.SelectedIndices[0];
                 _downItem(selected);
                 ReloadList();
+                index = Math.Max(--index, 0);
+                listView.Items[index].Selected = true;
+                listView.Select();
             }
         }
 
@@ -177,8 +181,12 @@ namespace Avm.Controls
             var selected = GetSelectedElement();
             if (selected != null)
             {
+                int index = listView.SelectedIndices[0];
                 _upItem(selected);
                 ReloadList();
+                index = Math.Min(++index, listView.Items.Count - 1);
+                listView.Items[index].Selected = true;
+                listView.Select();
             }
         }
 
