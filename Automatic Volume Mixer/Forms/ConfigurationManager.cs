@@ -27,6 +27,7 @@ namespace Avm.Forms
                     BehaviourEditor.ShowDialog(window, (Behaviour)info, _mixer.GroupNamesEnumerable),
                 info => _mixer.AddBehaviour((Behaviour)info),
                 info => _mixer.RemoveBehaviour((Behaviour)info),
+                null,
                 () => _mixer.ClearBehaviours(),
                 null, null,
                 info => ((Behaviour)info).Group);

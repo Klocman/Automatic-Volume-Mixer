@@ -41,6 +41,7 @@ namespace Avm.Forms
                 (window, info) => ElementEditor.ShowDialog(window, (ITrigger) info),
                 info => triggers.Add((ITrigger) info),
                 info => triggers.Remove((ITrigger) info),
+                null,
                 () => triggers.Clear());
 
             var conditions = newBehaviour.Conditions;
@@ -48,6 +49,7 @@ namespace Avm.Forms
                 (window, info) => ElementEditor.ShowDialog(window, (ITrigger) info),
                 info => conditions.Add((ITrigger) info),
                 info => conditions.Remove((ITrigger) info),
+                null,
                 () => conditions.Clear());
 
             var actions = newBehaviour.Actions;
@@ -55,6 +57,7 @@ namespace Avm.Forms
                 (window, info) => ElementEditor.ShowDialog(window, (IAction) info),
                 info => actions.Add((IAction) info),
                 info => actions.Remove((IAction) info),
+                (index, info) => actions.Insert(index, (IAction)info),
                 () => actions.Clear(),
                 info => actions.MoveUp(actions.IndexOf((IAction) info)),
                 info => actions.MoveDown(actions.IndexOf((IAction) info)));
