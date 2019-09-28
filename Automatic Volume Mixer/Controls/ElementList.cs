@@ -57,7 +57,7 @@ namespace Avm.Controls
             _itemListEnumerator = itemListEnumerator;
             _addItem = addToList ?? throw new ArgumentNullException(nameof(addToList));
             _removeItem = removeFromList ?? throw new ArgumentNullException(nameof(removeFromList));
-            _setItem = setToList;						   
+            _setItem = setToList;
             _clearItems = clearItems;
             _upItem = upItem;
             _downItem = downItem;
