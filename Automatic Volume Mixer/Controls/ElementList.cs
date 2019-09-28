@@ -16,7 +16,7 @@ namespace Avm.Controls
         private Func<IWin32Window, IBasicInfo, IBasicInfo> _launchEditor;
         private Action<IBasicInfo> _removeItem;
         private Action<IBasicInfo> _upItem;
-        private Action<int, IBasicInfo> _insertItem;
+        private Action<int, IBasicInfo> _setItem;
         private Action _clearItems;
 
         public ElementList()
@@ -48,7 +48,7 @@ namespace Avm.Controls
             Func<IWin32Window, IBasicInfo, IBasicInfo> launchEditor,
             Action<IBasicInfo> addToList,
             Action<IBasicInfo> removeFromList,
-            Action<int, IBasicInfo> insertToList = null,
+            Action<int, IBasicInfo> setToList = null,
             Action clearItems = null,
             Action<IBasicInfo> upItem = null,
             Action<IBasicInfo> downItem = null,
@@ -64,7 +64,7 @@ namespace Avm.Controls
             _itemListEnumerator = itemListEnumerator;
             _addItem = addToList;
             _removeItem = removeFromList;
-			_insertItem = insertToList;						   
+            _setItem = setToList;						   
             _clearItems = clearItems;
             _upItem = upItem;
             _downItem = downItem;
@@ -147,18 +147,19 @@ namespace Avm.Controls
             if (selected == null) return;
 
             var result = _launchEditor(this, selected);
-            if (result != null)
+            if (result == null) return;
+
+            if (_setItem == null)
             {
                 _removeItem(selected);
-                if (_insertItem == null)
-                    _addItem(result);
-                else
-				{
-					int index = listView.SelectedIndices[0];
-                    _insertItem(index, result);
-				}
-                ReloadList();
+                _addItem(result);
             }
+            else
+            {
+                int index = listView.SelectedIndices[0];
+                _setItem(index, result);
+            }
+            ReloadList();
         }
 
         private void buttonTriggerDelete_Click(object sender, EventArgs e)
