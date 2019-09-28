@@ -57,7 +57,7 @@ namespace Avm.Forms
                 (window, info) => ElementEditor.ShowDialog(window, (IAction) info),
                 info => actions.Add((IAction) info),
                 info => actions.Remove((IAction) info),
-                (index, info) => actions[index] = (IAction)info,
+                (index, info) => actions.Insert(index, (IAction)info),
                 () => actions.Clear(),
                 info => actions.MoveUp(actions.IndexOf((IAction) info)),
                 info => actions.MoveDown(actions.IndexOf((IAction) info)));
