@@ -54,21 +54,14 @@ namespace Avm.Controls
             Action<IBasicInfo> downItem = null,
             Func<IBasicInfo, string> groupKeyGetter = null)
         {
-            if (addToList == null)
-                throw new ArgumentNullException(nameof(addToList));
-            if (removeFromList == null)
-                throw new ArgumentNullException(nameof(removeFromList));
-            if (launchEditor == null)
-                throw new ArgumentNullException(nameof(launchEditor));
-
             _itemListEnumerator = itemListEnumerator;
-            _addItem = addToList;
-            _removeItem = removeFromList;
+            _addItem = addToList ?? throw new ArgumentNullException(nameof(addToList));
+            _removeItem = removeFromList ?? throw new ArgumentNullException(nameof(removeFromList));
             _setItem = setToList;						   
             _clearItems = clearItems;
             _upItem = upItem;
             _downItem = downItem;
-            _launchEditor = launchEditor;
+            _launchEditor = launchEditor ?? throw new ArgumentNullException(nameof(launchEditor));
             _groupKeyGetter = groupKeyGetter;
 
             ManualOrdering = upItem != null && downItem != null;
@@ -90,8 +83,7 @@ namespace Avm.Controls
 
             var newListItems = ManualOrdering ? _itemListEnumerator : _itemListEnumerator.OrderBy(x => x.Name);
 
-            Func<IBasicInfo, ListViewItem> createLvi =
-                x => new ListViewItem(new[] {x.Name, x.Enabled.ToString(), x.GetDetails(), TriggerCounter.GetCounter(x).ToString()}) {Tag = x};
+            ListViewItem createLvi(IBasicInfo x) => new ListViewItem(new[] { x.Name, x.Enabled.ToString(), x.GetDetails(), TriggerCounter.GetCounter(x).ToString() }) { Tag = x };
 
             if (_groupKeyGetter != null)
             {
@@ -106,8 +98,7 @@ namespace Avm.Controls
                         defaultGroup.Items.Add(lvi);
                     else
                     {
-                        ListViewGroup result;
-                        if (!groups.TryGetValue(groupKey, out result))
+                        if (!groups.TryGetValue(groupKey, out ListViewGroup result))
                         {
                             result = new ListViewGroup(groupKey);
                             groups.Add(groupKey, result);
